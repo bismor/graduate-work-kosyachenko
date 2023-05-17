@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const httpRegex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -29,9 +28,9 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return httpRegex.test(v);
+          return validator.isURL(v);
         },
-        message: (props) => `${props.value} неверная ссылка.`,
+        message: (props) => `${props.value} некорректный URL.`,
       },
     },
     trailerLink: {
@@ -39,9 +38,9 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return httpRegex.test(v);
+          return validator.isURL(v);
         },
-        message: (props) => `${props.value} неверная ссылка.`,
+        message: (props) => `${props.value} некорректный URL.`,
       },
     },
     thumbnail: {
@@ -49,9 +48,9 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return httpRegex.test(v);
+          return validator.isURL(v);
         },
-        message: (props) => `${props.value} неверная ссылка.`,
+        message: (props) => `${props.value} некорректный URL`,
       },
     },
     owner: {
@@ -62,7 +61,7 @@ const movieSchema = new mongoose.Schema(
     movieId: {
       type: String,
       required: true,
-      // id фильма, который содержится в ответе сервиса MoviesExplorer.
+      unique: true,
     },
     nameRU: {
       type: String,
