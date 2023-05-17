@@ -12,7 +12,9 @@ module.exports.getMovies = async (req, res, next) => {
   }
 };
 
-module.exports.createMovies = async (req, res, next) => {
+module.exports.createMovie = async (req, res, next) => {
+  const userId = req.user._id;
+
   try {
     const {
       country,
@@ -21,13 +23,12 @@ module.exports.createMovies = async (req, res, next) => {
       year,
       description,
       image,
-      trailer,
+      trailerLink,
       nameRU,
       nameEN,
       thumbnail,
       movieId,
     } = req.body;
-    const userId = req.user._id;
 
     const createMovie = await Movie.create({
       country,
@@ -36,7 +37,7 @@ module.exports.createMovies = async (req, res, next) => {
       year,
       description,
       image,
-      trailer,
+      trailerLink,
       nameRU,
       nameEN,
       thumbnail,
@@ -49,6 +50,7 @@ module.exports.createMovies = async (req, res, next) => {
 
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -57,7 +59,7 @@ module.exports.deleteMoviesById = async (req, res, next) => {
   try {
     const userId = req.user._id;
 
-    const movieData = await Movie.findById(req.params.movieId);
+    const movieData = await Movie.findById(req.params._id);
 
     if (!movieData) {
       throw new NotFoundError('Нет фильма по заданному ID');
