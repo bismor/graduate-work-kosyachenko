@@ -18,7 +18,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/filmsbd', {
 });
 
 const allowedCors = [
-  '',
+  'http://kosyachenko.filmsite.nomoredomains.monster',
+  'https://kosyachenko.filmsite.nomoredomains.monster',
 ];
 
 app.use((req, res, next) => {
