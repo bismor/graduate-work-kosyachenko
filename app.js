@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 
@@ -31,5 +31,7 @@ app.post('/signup', celebrate({
 
 app.use('/movies', auth, require('./routes/movies'));
 app.use('/users', auth, require('./routes/users'));
+
+app.use(errors());
 
 app.listen(3000);
