@@ -50,7 +50,6 @@ module.exports.createMovie = async (req, res, next) => {
 
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
