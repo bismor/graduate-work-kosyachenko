@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
-const ConflictError = require('./errors/conflict-err');
-const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 const { validateCreateUser, validateLogin } = require('./middlewares/requestValidation');
@@ -44,26 +42,20 @@ app.post('/signup', validateCreateUser, createUser);
 app.use('/movies', auth, require('./routes/movies'));
 app.use('/users', auth, require('./routes/users'));
 
-app.use((req, res, next) => {
-  next(new NotFoundError('Передан "userId" несуществующего пользователя'));
-});
+// app.use((req, res, next) => {
+//   next(new NotFoundError('Передан "userId" несуществующего пользователя'));
+// });
 
 app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  if (err.code === 11000) {
-    return next(new ConflictError('Такой email уже существует'));
+  if (err.status) {
+    res.status(err.status).send(err.message);
+    return;
   }
-
-  return res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
+  res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
+  next();
 });
 
 app.listen(3000);

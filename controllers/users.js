@@ -5,6 +5,7 @@ const HTTP_STATUS_CODE = require('../utils/http-status-code');
 const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
+const ConflictError = require('../errors/conflict-err');
 require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -33,7 +34,9 @@ module.exports.createUser = async (req, res, next) => {
 
     res.status(HTTP_STATUS_CODE.OK).send({ safeData });
   } catch (error) {
-    if (error.name === 'ValidationError') {
+    if (error.code === 11000) {
+      next(new ConflictError('Такой email уже существует'));
+    } else if (error.name === 'ValidationError') {
       next(new BadRequestError('некорректное поле name'));
     } else next(error);
   }
