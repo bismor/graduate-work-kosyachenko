@@ -4,8 +4,9 @@ const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getMovies = async (req, res, next) => {
+  const user = req.user._id;
   try {
-    const data = await Movie.find({});
+    const data = await Movie.find({ user });
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
     next(error);
