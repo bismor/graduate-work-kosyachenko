@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/not-found-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
 require('dotenv').config();
 
-const { JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = async (req, res, next) => {
   try {
@@ -41,11 +41,11 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.changeUsers = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, email } = req.body;
 
     const data = await User.findByIdAndUpdate(
       req.User._id,
-      { name },
+      { name, email },
       { new: true, runValidators: true },
     );
 
@@ -72,7 +72,7 @@ module.exports.login = async (req, res, next) => {
     if (!isPasswordMatch) {
       throw new UnauthorizedError('Неправильные почта или пароль');
     }
-    const token = jwt.sign({ _id: userData._id }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ _id: userData._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
 
     res.status(HTTP_STATUS_CODE.OK).send({ token });
   } catch (error) {
