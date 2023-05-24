@@ -43,7 +43,6 @@ module.exports.createUser = async (req, res, next) => {
 };
 
 module.exports.changeUsers = async (req, res, next) => {
-  console.log(req.user._id);
   try {
     const { name, email } = req.body;
 
