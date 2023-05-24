@@ -2,11 +2,12 @@ const Movie = require('../models/movie');
 const HTTP_STATUS_CODE = require('../utils/http-status-code');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const ConflictError = require('../errors/conflict-err');
 
 module.exports.getMovies = async (req, res, next) => {
-  const user = req.user._id;
+  const owner = req.user._id;
   try {
-    const data = await Movie.find({ user });
+    const data = await Movie.find({ owner }).populate('owner');
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
     next(error);
@@ -51,7 +52,9 @@ module.exports.createMovie = async (req, res, next) => {
 
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
-    next(error);
+    if (error.code === 11000) {
+      next(new ConflictError('Такой фильм уже существует'));
+    } else next(error);
   }
 };
 
@@ -59,7 +62,7 @@ module.exports.deleteMoviesById = async (req, res, next) => {
   try {
     const userId = req.user._id;
 
-    const movieData = await Movie.findById(req.params._id);
+    const movieData = await Movie.findById(req.params.MovieId);
 
     if (!movieData) {
       throw new NotFoundError('Нет фильма по заданному ID');
