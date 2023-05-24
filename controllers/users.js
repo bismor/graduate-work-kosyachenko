@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const user = require('../models/user');
 const HTTP_STATUS_CODE = require('../utils/http-status-code');
 const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
@@ -12,7 +12,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = async (req, res, next) => {
   try {
-    const data = await User.find({});
+    const data = await user.find({});
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
   } catch (error) {
@@ -25,7 +25,7 @@ module.exports.createUser = async (req, res, next) => {
     const { name } = req.body;
 
     const passwordHash = await bcrypt.hash(req.body.password, 10);
-    const userData = await User.create({
+    const userData = await user.create({
       name,
       email: req.body.email,
       password: passwordHash, // записываем хеш в базу
@@ -43,11 +43,12 @@ module.exports.createUser = async (req, res, next) => {
 };
 
 module.exports.changeUsers = async (req, res, next) => {
+  console.log(req.user._id);
   try {
     const { name, email } = req.body;
 
-    const data = await User.findByIdAndUpdate(
-      req.User._id,
+    const data = await user.findByIdAndUpdate(
+      req.user._id,
       { name, email },
       { new: true, runValidators: true },
     );
@@ -65,7 +66,7 @@ module.exports.changeUsers = async (req, res, next) => {
 module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const userData = await User.findOne({ email }).select('+password');
+    const userData = await user.findOne({ email }).select('+password');
 
     if (userData === null) {
       throw new UnauthorizedError('Неправильные почта или пароль');

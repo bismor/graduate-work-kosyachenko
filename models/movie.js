@@ -56,7 +56,7 @@ const movieSchema = new mongoose.Schema(
     owner: {
       type: mongoose.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'user',
     },
     movieId: {
       type: String,
