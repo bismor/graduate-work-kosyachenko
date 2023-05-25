@@ -82,3 +82,14 @@ module.exports.login = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.logout = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const userData = await user.findOne({ email }).select('+password');
+    const token = jwt.sign({ _id: userData._id }, '', { expiresIn: 0 });
+    res.status(HTTP_STATUS_CODE.OK).send({ token });
+  } catch (error) {
+    next(error);
+  }
+};
