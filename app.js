@@ -53,13 +53,17 @@ app.use(auth, (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  if (err.status) {
-    res.status(err.status).send(err.message);
-    return;
-  }
-  res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
-  next();
+  const { statusCode = 500, message } = err;
+
+  return res
+    .status(statusCode)
+    .send({
+      message: statusCode === 500
+        ? 'На сервере произошла ошибка'
+        : message,
+    });
 });
 
 app.listen(3000);
