@@ -85,6 +85,7 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
+// токен авторизации не находится в куки, поэтому мы его не удаляем
 module.exports.logout = async (req, res, next) => {
   try {
     const { email } = req.params;

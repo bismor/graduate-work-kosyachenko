@@ -8,11 +8,13 @@ const { createUser, login, logout } = require('./controllers/users');
 const { validateCreateUser, validateLogin } = require('./middlewares/requestValidation');
 const NotFoundError = require('./errors/not-found-err');
 
+const { MONGO_BD_URL } = process.env;
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/filmsbd', {
+mongoose.connect(MONGO_BD_URL, {
   useNewUrlParser: true,
 });
 
