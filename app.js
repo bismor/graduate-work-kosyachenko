@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, logout } = require('./controllers/users');
 const { validateCreateUser, validateLogin } = require('./middlewares/requestValidation');
 
 const app = express();
@@ -39,12 +39,9 @@ app.use(requestLogger);
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
 
+app.post('/signout', auth, logout);
 app.use('/movies', auth, require('./routes/movies'));
 app.use('/users', auth, require('./routes/users'));
-
-// app.use((req, res, next) => {
-//   next(new NotFoundError('Передан "userId" несуществующего пользователя'));
-// });
 
 app.use(errorLogger);
 app.use(errors());
