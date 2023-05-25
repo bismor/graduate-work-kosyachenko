@@ -1,6 +1,6 @@
 # graduate-work-kosyachenko
 
-IP-адрес 158.160.98.141
+IP-адрес 51.250.83.178
 
 Frontend kosyachenko.filmsite.nomoredomains.monster
 
