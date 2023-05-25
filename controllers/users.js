@@ -58,7 +58,9 @@ module.exports.changeUsers = async (req, res, next) => {
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
   } catch (error) {
-    next(error);
+    if (error.code === 11000) {
+      next(new ConflictError('Такой пользователь уже существует'));
+    } next(error);
   }
 };
 
