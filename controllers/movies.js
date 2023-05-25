@@ -7,7 +7,7 @@ const ConflictError = require('../errors/conflict-err');
 module.exports.getMovies = async (req, res, next) => {
   const owner = req.user._id;
   try {
-    const data = await Movie.find({ owner }).populate('owner');
+    const data = await Movie.find({ owner });
     res.status(HTTP_STATUS_CODE.OK).send({ data });
   } catch (error) {
     next(error);
@@ -62,7 +62,7 @@ module.exports.deleteMoviesById = async (req, res, next) => {
   try {
     const userId = req.user._id;
 
-    const movieData = await Movie.findById(req.params.MovieId);
+    const movieData = await Movie.findById(req.params.ObjectId);
 
     if (!movieData) {
       throw new NotFoundError('Нет фильма по заданному ID');
