@@ -6,6 +6,7 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login, logout } = require('./controllers/users');
 const { validateCreateUser, validateLogin } = require('./middlewares/requestValidation');
+const NotFoundError = require('./errors/not-found-err');
 
 const app = express();
 app.use(bodyParser.json());
@@ -45,6 +46,10 @@ app.use('/users', auth, require('./routes/users'));
 
 app.use(errorLogger);
 app.use(errors());
+
+app.use(auth, (req, res, next) => {
+  next(new NotFoundError('Страница не найдена'));
+});
 
 app.use((err, req, res, next) => {
   if (err.status) {
