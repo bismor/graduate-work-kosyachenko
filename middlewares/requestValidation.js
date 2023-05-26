@@ -27,7 +27,7 @@ const validateCreateMovie = celebrate({
 
 const validateDeleteMovie = celebrate({
   params: Joi.object().keys({
-    ObjectId: Joi.string().required(),
+    ObjectId: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
   }),
 });
 

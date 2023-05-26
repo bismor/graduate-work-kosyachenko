@@ -7,8 +7,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login, logout } = require('./controllers/users');
 const { validateCreateUser, validateLogin } = require('./middlewares/requestValidation');
 const NotFoundError = require('./errors/not-found-err');
-
-const { MONGO_BD_URL } = process.env;
+const { PORT, MONGO_BD_URL } = require('./utils/config');
 
 const app = express();
 app.use(bodyParser.json());
@@ -68,4 +67,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(3000);
+app.listen(PORT);
