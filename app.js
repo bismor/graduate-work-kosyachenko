@@ -47,12 +47,13 @@ app.post('/signout', auth, logout);
 app.use('/movies', auth, require('./routes/movies'));
 app.use('/users', auth, require('./routes/users'));
 
-app.use(errorLogger);
 app.use(errors());
 
 app.use(auth, (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;

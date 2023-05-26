@@ -1,4 +1,5 @@
 const { celebrate, Joi, CelebrateError } = require('celebrate');
+const mongoose = require('mongoose');
 const validator = require('validator');
 
 const urlValidation = (value) => {
@@ -7,6 +8,14 @@ const urlValidation = (value) => {
   }
 
   return value;
+};
+
+const isValidIbOjectId = (objId) => {
+  if (!mongoose.Types.ObjectId.isValid(objId)) {
+    throw new CelebrateError('Некорректный ID');
+  }
+
+  return objId;
 };
 
 const validateCreateMovie = celebrate({
@@ -27,7 +36,7 @@ const validateCreateMovie = celebrate({
 
 const validateDeleteMovie = celebrate({
   params: Joi.object().keys({
-    ObjectId: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
+    ObjectId: Joi.string().required().custom(isValidIbOjectId),
   }),
 });
 
