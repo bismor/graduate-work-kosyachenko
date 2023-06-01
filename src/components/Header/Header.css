@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 70px;
+  background-color: #073042;
+  align-items: center;
+}
+
+.header__sign {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+}
+
+.header__link {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: .75rem;
+}
+
+.header__link_type_signin {
+  color:  #000000;
+  background: #2BE080;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
