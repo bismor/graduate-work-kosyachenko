@@ -1,0 +1,37 @@
+.promo {
+  background-color: #073042;
+  display: grid;
+  padding: 75px 70px;
+  gap: 146px 190px;
+  grid-template-columns: repeat(2, auto)
+}
+
+.promo__title {
+  color: white;
+  font-weight: 400;
+  font-size: 3.125rem;
+}
+
+.promo__subtitle {
+  color: white;
+  font-weight: 400;
+  font-size: .8125em;
+  max-width: 19.375rem;
+  opacity: 50%;
+}
+
+.promo__description {
+  display: flex;
+  flex-direction: column;
+}
+
+.promo__link {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  max-width: 8rem;
+  text-align: center;
+  font-size: 0.75rem;
+}
