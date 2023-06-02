@@ -1,4 +1,5 @@
 import "./AboutProject.css";
+import arrow from "../../images/arrow.svg"
 
 export default function AboutProject() {
   return (
@@ -6,17 +7,32 @@ export default function AboutProject() {
       <h2 className="aboutproject__title">Студент</h2>
       <div className="aboutproject_about">
         <div className="aboutproject__bio">
-          <h3>Владислав</h3>
-          <h4>Фронтенд-разработчик, 25 лет</h4>
-          <p>
-            Я родился и живу в Королеве. Закончил МЭИ, факультет
-            электроэнергетики и электротехники.
+          <h3 className="aboutproject__heading">Владислав</h3>
+          <h4 className="aboutproject__profession">Фронтенд-разработчик, 25 лет</h4>
+          <p className="aboutproject__text">
+            Я родился и живу в Королеве. Закончил МЭИ, факультет электроэнергетики и электротехники.
+            Я люблю слушать музыку и моделировать игровые интерьеры.
+            С 2017 начал администировать игровой проект на языке Lua.
+            После этого прошел курс по веб-разработке и сейчас в активном поиске работы.
           </p>
-          <div className="aboutproject__git">
-          <a href="https://github.com/bismor" title='GitHub' className='aboutMe__link'>GitHub</a>
-          </div>
+          <a href="https://github.com/bismor" title='GitHub' className='aboutproject__git'>GitHub</a>
         </div>
         <div className="aboutproject__image"></div>
+      </div>
+      <h2 className="aboutproject__portfolio">Портфолио</h2>
+      <div className="aboutproject__container">
+        <div className="aboutproject__container-link">
+          <a href="https://github.com/bismor" title='Статичный сайт' className='aboutproject__link'>Статичный сайт</a>
+          <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
+        </div>
+        <div className="aboutproject__container-link">
+          <a href="https://github.com/bismor" title='Адаптивный сайт' className='aboutproject__link'>Адаптивный сайт</a>
+          <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
+        </div>
+        <div className="aboutproject__container-link">
+          <a href="https://github.com/bismor" title='Одностраничное приложение' className='aboutproject__link'>Одностраничное приложение</a>
+          <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
+        </div>
       </div>
     </section>
   );
