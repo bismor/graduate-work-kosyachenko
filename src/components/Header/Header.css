@@ -1,7 +1,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 1.125rem 4.375rem;
+  padding: 1.125rem 0.875rem;
   background-color: #073042;
   align-items: center;
 }
@@ -9,7 +9,7 @@
 .header__sign {
   align-items: center;
   display: flex;
-  gap: 1.875rem;
+  gap: 0.875rem;
 }
 
 .header__link {
@@ -17,12 +17,46 @@
   color: white;
   cursor: pointer;
   font-weight: 500;
-  font-size: .75rem;
+  font-size: .625rem;
+  line-height: 1rem;
 }
 
 .header__link_type_signin {
   color:  #000000;
   background: #2BE080;
   border-radius: .1875rem;
-  padding: 0.5rem 1.25rem;
+  padding: 0.3125rem 0.75rem;
 }
+
+@media screen and (min-width: 768px) {
+  .header {
+    padding: 1.125rem 1.875rem;
+  }
+  
+  .header__sign {
+    gap: 1.875rem;
+  }
+  
+  .header__link {
+    font-size: .75rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    padding: 1.125rem 4.375rem;
+  }
+  
+  .header__sign {
+    gap: 1.875rem;
+  }
+  
+  .header__link {
+    font-size: .75rem;
+  }
+  
+  .header__link_type_signin {
+    padding: 0.5rem 1.25rem;
+  }
+}
+
