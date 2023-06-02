@@ -1,50 +1,52 @@
 .navtab {
   display: flex;
   flex-direction: column;
-  padding: 6.875rem 4.375rem;
+  padding: 4.375rem 1.125rem;
   color: white;
   background-color: #202020;
-  font-weight: 400;
 }
 
 .navtab__title {
   color: white;
-  font-size: 1.375rem;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
   font-weight: 400;
-  padding-bottom: 1.4375rem;
-  border-bottom: solid 0.125rem #DADADA;
+  padding-bottom: 1rem;
+  border-bottom: solid 0.0625rem #DADADA;
   margin: 0;
 }
 
 .navtab__infromation {
   display: flex;
-  flex-direction: row;
-  gap: 2.5rem;
+  flex-direction: column;
+  gap: 3.5rem;
   padding: 4.375rem 0 6.875rem 0;
 }
 
 .navtab__description {
   display: flex;
   flex-direction: column;
-  gap: 1.625rem;
+  gap: 1rem;
 }
 
 .navtab__heading {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
+  line-height: 1.375rem;
 }
 
 .navtab__text {
   margin: 0;
-  font-size: .875rem;
+  font-size: 0.6875rem;
   font-weight: 400;
+  line-height: 1rem;
 }
 
 .navtab__time {
   display: grid;
   flex-direction: row;
-  grid-template-columns: 14.25rem auto;
+  grid-template-columns: 6.25rem auto;
   justify-items: center;
 }
 
@@ -52,32 +54,179 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: 0.625rem;
 }
 
 .navtab__backend {
   width: 100%;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.6875rem;
+  line-height: 0.8125rem;
+  font-weight: 400;
+  color: black;
   background-color: #3DDC84;
   margin: 0;
-  padding: 0.5625rem 0;
+  padding: 0.6875rem 0;
 }
 
 .navtab__frontend {
   width: 100%;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.6875rem;
+  line-height: 0.8125rem;
   background-color: #303030;
   margin: 0;
-  padding: 0.5625rem 0;
+  padding: 0.6875rem 0;
 }
 
 
 .navtab__systemname {
-  font-weight: 500;
-  font-size: .875rem;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 0.8125rem;
   color: #8B8B8B;
   margin: 0;
   text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .navtab {
+    padding: 5.625rem 3.125rem;
+  }
+
+  .navtab__title {
+    font-size: 1.375rem;
+    line-height: 1.6875rem;
+    padding-bottom: 1.4375rem;
+  }
+
+  .navtab__infromation {
+    gap: 3.5rem;
+    padding: 4.375rem 0 5.8125rem 0;
+  }
+
+  .navtab__description {
+    gap: 1.875rem;
+  }
+
+  .navtab__heading {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .navtab__text {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+
+  .navtab__time {
+    grid-template-columns: 8.75rem auto;
+  }
+
+  .navtab__week {
+    gap: 0.875rem;
+  }
+
+  .navtab__backend {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    padding: 0.5625rem 0;
+  }
+
+  .navtab__frontend {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    padding: 0.5625rem 0;
+  }
+
+  .navtab__systemname {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navtab {
+    display: flex;
+    flex-direction: column;
+    padding: 6.875rem 4.375rem;
+    color: white;
+    background-color: #202020;
+    font-weight: 400;
+  }
+  
+  .navtab__title {
+    color: white;
+    font-size: 1.375rem;
+    font-weight: 400;
+    padding-bottom: 1.4375rem;
+    border-bottom: solid 0.125rem #DADADA;
+    margin: 0;
+  }
+  
+  .navtab__infromation {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    padding: 4.375rem 0 6.875rem 0;
+  }
+  
+  .navtab__description {
+    display: flex;
+    flex-direction: column;
+    gap: 1.625rem;
+  }
+  
+  .navtab__heading {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+  
+  .navtab__text {
+    margin: 0;
+    font-size: .875rem;
+    font-weight: 400;
+  }
+  
+  .navtab__time {
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: 14.25rem auto;
+    justify-items: center;
+  }
+  
+  .navtab__week {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  
+  .navtab__backend {
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
+    background-color: #3DDC84;
+    margin: 0;
+    padding: 0.5625rem 0;
+  }
+  
+  .navtab__frontend {
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
+    background-color: #303030;
+    margin: 0;
+    padding: 0.5625rem 0;
+  }
+  
+  
+  .navtab__systemname {
+    font-weight: 500;
+    font-size: .875rem;
+    color: #8B8B8B;
+    margin: 0;
+    text-align: center;
+  }
 }
