@@ -1,8 +1,8 @@
 .promo {
   background-color: #073042;
   display: grid;
-  padding: 75px 70px;
-  gap: 146px 190px;
+  padding: 4.6875rem 4.375rem;
+  gap: 9.125rem 11.875rem;
   grid-template-columns: repeat(2, auto)
 }
 
@@ -10,12 +10,13 @@
   color: white;
   font-weight: 400;
   font-size: 3.125rem;
+  line-height: 3.625rem;
 }
 
 .promo__subtitle {
   color: white;
   font-weight: 400;
-  font-size: .8125em;
+  font-size: .8125rem;
   max-width: 19.375rem;
   opacity: 50%;
 }
@@ -25,12 +26,16 @@
   flex-direction: column;
 }
 
+.promo__logo {
+
+}
+
 .promo__link {
   text-decoration: none;
   color: white;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 4px;
+  padding: .625rem;
+  border: .0625rem solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.25rem;
   max-width: 8rem;
   text-align: center;
   font-size: 0.75rem;

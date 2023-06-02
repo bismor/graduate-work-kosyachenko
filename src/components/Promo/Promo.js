@@ -9,7 +9,7 @@ export default function Promo() {
         <h1 className='promo__title'>Учебный проект студента факультета Веб-разработки.</h1>
         <p className='promo__subtitle'>Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
       </div>
-      <img src={landingLlogo} alt='Логотип Земли'/>
+      <img src={landingLlogo} className='promo__logo' alt='Логотип Земли'/>
       <Link to="#AboutProject" className='promo__link' title='Узнать больше'>Узнать больше</Link>
 
     </section>
