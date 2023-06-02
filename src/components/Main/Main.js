@@ -4,6 +4,7 @@ import Promo from "../Promo/Promo";
 import NavTab from "../NavTab/NavTab"
 import Techs from '../Techs/Techs';
 import AboutProject from '../AboutProject/AboutProject';
+import Footer from '../Footer/Footer';
 
 
 export default function Main() {
@@ -14,6 +15,7 @@ export default function Main() {
       <NavTab/>
       <Techs/>
       <AboutProject/>
+      <Footer/>
     </>
   );
 }
