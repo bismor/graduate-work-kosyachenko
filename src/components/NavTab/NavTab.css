@@ -1,7 +1,7 @@
 .navtab {
   display: flex;
   flex-direction: column;
-  padding: 110px 70px;
+  padding: 6.875rem 4.375rem;
   color: white;
   background-color: #202020;
   font-weight: 400;
@@ -10,32 +10,35 @@
 .navtab__title {
   color: white;
   font-size: 1.375rem;
-  padding-bottom: 23px;
-  border-bottom: solid 2px #DADADA;
+  font-weight: 400;
+  padding-bottom: 1.4375rem;
+  border-bottom: solid 0.125rem #DADADA;
   margin: 0;
 }
 
 .navtab__infromation {
   display: flex;
   flex-direction: row;
-  gap: 40px;
-  padding: 70px 0 110px 0;
+  gap: 2.5rem;
+  padding: 4.375rem 0 6.875rem 0;
 }
 
 .navtab__description {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 1.625rem;
 }
 
 .navtab__heading {
   margin: 0;
   font-size: 1.25rem;
+  font-weight: 400;
 }
 
 .navtab__text {
   margin: 0;
   font-size: .875rem;
+  font-weight: 400;
 }
 
 .navtab__time {
@@ -49,7 +52,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
 .navtab__backend {
@@ -58,7 +61,7 @@
   font-size: 0.875rem;
   background-color: #3DDC84;
   margin: 0;
-  padding: 9px 0;
+  padding: 0.5625rem 0;
 }
 
 .navtab__frontend {
@@ -67,13 +70,13 @@
   font-size: 0.875rem;
   background-color: #303030;
   margin: 0;
-  padding: 9px 0;
+  padding: 0.5625rem 0;
 }
 
 
 .navtab__systemname {
   font-weight: 500;
-  font-size: .875;
+  font-size: .875rem;
   color: #8B8B8B;
   margin: 0;
   text-align: center;
