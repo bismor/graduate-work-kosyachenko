@@ -1,19 +1,19 @@
 .techs {
   display: flex;
   flex-direction: column;
-  padding: 6.25rem 4.375rem;
+  padding: 70px 18px;
   color: white;
   background-color: #202020;
-  font-weight: 400;
 }
 
 .techs__title {
   color: white;
-  font-size: 1.375rem;
+  font-size: 18px;
   font-weight: 400;
-  border-bottom: solid 0.125rem #DADADA;
+  line-height: 22px;
+  border-bottom: solid 1px black;
   margin: 0;
-  padding-bottom: 1.4375rem;
+  padding-bottom: 28px;
 }
 
 .techs__container {
@@ -23,35 +23,123 @@
 }
 
 .techs__heading {
-  font-size: 3.125rem;
+  font-size: 30px;
   font-weight: 400;
-  margin: 5.625rem 0 1.625rem 0;
-  line-height: 3.625rem;
+  line-height: 36px;
+  margin: 80px 0 24px 0;
 }
 
 .techs__text {
-  font-size: .875rem;
+  font-size: 11px;
   font-weight: 400;
-  line-height: 1.25rem;
-  margin: 0 0 6.25rem 0;
+  line-height: 16px;
+  margin: 0 0 50px 0;
+  text-align: center;
 }
 
 .techs__technology {
   display: grid;
-  grid-template-columns: repeat(7, 90px);
-  gap: 0.625rem;
+  grid-template-columns: repeat(2, 84px);
+  gap: 10px;
 }
 
 .techs__cell {
-  font-size: .875rem;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.05875rem;
+  line-height: 15px;
   text-decoration: none;
   color: white;
   cursor: pointer;
-  border-radius: 0.625rem;
+  border-radius: 10px;
   background: #303030;
   text-align: center;
-  padding: 1.3125rem 0 1.375rem 0;
+  padding: 21px 0 ;
 }
 
+@media screen and (min-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+  
+  .techs__title {
+    font-size: 22px;
+    line-height: 27px;
+    padding-bottom: 23px;
+  }
+
+  .techs__heading {
+    font-size: 50px;
+    line-height: 58px;
+    margin: 80px 0 22px 0;
+  }
+
+  .techs__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 83px 0;
+  }
+
+  .techs__technology {
+    display: grid;
+    grid-template-columns: repeat(7, 84px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .techs {
+    display: flex;
+    flex-direction: column;
+    padding: 6.25rem 4.375rem;
+    color: white;
+    background-color: #202020;
+    font-weight: 400;
+  }
+
+  .techs__title {
+    color: white;
+    font-size: 1.375rem;
+    font-weight: 400;
+    border-bottom: solid 0.125rem #DADADA;
+    margin: 0;
+    padding-bottom: 1.4375rem;
+  }
+
+  .techs__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .techs__heading {
+    font-size: 3.125rem;
+    font-weight: 400;
+    margin: 5.625rem 0 1.625rem 0;
+    line-height: 3.625rem;
+  }
+
+  .techs__text {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    margin: 0 0 6.25rem 0;
+  }
+
+  .techs__technology {
+    display: grid;
+    grid-template-columns: repeat(7, 90px);
+    gap: 0.625rem;
+  }
+
+  .techs__cell {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.05875rem;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.625rem;
+    background: #303030;
+    text-align: center;
+    padding: 1.3125rem 0 1.375rem 0;
+  }
+}
