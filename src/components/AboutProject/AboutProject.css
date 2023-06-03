@@ -106,13 +106,12 @@
   .aboutproject__title {
     font-size: 1.375rem;
     line-height: 1.6875rem;
-    font-weight: 400;
     padding-bottom: 1.4375rem;
   }
   
   .aboutproject_about {
     display: grid;
-    grid-template-columns: auto 255px;
+    grid-template-columns: auto 15.9375rem;
     gap: 3.0625rem;
     padding: 4.125rem 0  5.625rem 0;
     justify-content: space-between;
@@ -133,7 +132,6 @@
     font-size: 0.75rem;
     line-height: 1.125rem;
     margin: 0 0 5.4375rem 0;
-    min-width: 22.75rem;
   }
   
   .aboutproject__git {
@@ -144,7 +142,6 @@
   .aboutproject__image {
     order: 1;
     width: 15.9375rem;
-    height: 19.1875rem;
   }
   
   .aboutproject__portfolio {
@@ -165,25 +162,12 @@
 
 @media screen and (min-width: 1280px) {
   .aboutproject {
-    display: flex;
     padding: 6.875rem 4.375rem 7.8125rem 4.375rem;
-    flex-direction: column;
-    color: white;
-    background-color: #202020;
-  }
-  
-  .aboutproject__title {
-    color: white;
-    font-size: 1.375rem;
-    font-weight: 400;
-    padding-bottom: 1.4375rem;
-    border-bottom: solid 0.125rem #DADADA;
-    margin: 0;
   }
   
   .aboutproject_about {
     display: grid;
-    grid-template-columns: auto 270px;
+    grid-template-columns: auto 16.875rem;
     gap: 16.875rem;
     padding: 4.125rem 0  6.3125rem 0;
   }
@@ -191,77 +175,49 @@
   .aboutproject__heading {
     font-size: 3.125rem;
     line-height: 3.625rem;
-    font-weight: 400;
-    margin: 0;
   }
   
   .aboutproject__profession {
     font-size: 1.125rem;
     line-height: 1.25rem;
-    font-weight: 500;
     margin: 1.125rem 0 1.625rem 0;
   }
   
   .aboutproject__text {
     font-size: .875rem;
     line-height: 1.375rem;
-    font-weight: 400;
     margin: 0 0 6.1875rem 0;
   }
   
   .aboutproject__git {
-    font-weight: 500;
     font-size: .875rem;
     line-height: 1.05875rem;
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-  
   }
   
   .aboutproject__image {
-    background: url("../../images/avatar.png") no-repeat center;
-    background-size: cover;
-    border-radius: 0.625rem;
-    order: 1;
-    min-width: 16.875rem;
+    width: 16.875rem;
   }
   
   .aboutproject__portfolio {
-    color: #8B8B8B;
-    font-weight: 400;
     font-size: 0.89rem;
     line-height: 1.25rem;
     margin: 0 0 3.125rem 0;
   }
   
   .aboutproject__container {
-    display: flex;
-    flex-direction: column;
     gap: 1.25rem;
-    
   }
   
   .aboutproject__link {
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
     font-size: 1.875rem;
     line-height: 3.125rem;
-    font-weight: 400;
-  
   }
   
   .aboutproject__container-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     padding-bottom: 1.1875rem;
-    border-bottom: solid 0.0625rem #424242;
   }
   
   .aboutproject__arrow {
-    color: white;
     width: 1.8125rem;
   }
 }
