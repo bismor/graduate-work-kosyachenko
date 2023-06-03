@@ -1,13 +1,16 @@
 import './Login.css';
 import Logo from "../ui/Logo/Logo"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+    const navigate = useNavigate();
+
   return (
     <div className="login">
       <Logo/>
       <h1 className="login__name">Рады видеть!</h1>
-      <form className="login__form">
+      <form className="login__form" onSubmit={() => { navigate("/profile", { replace: true })}}>
         <section className="login__section">
           <label className="login__label">E-mail
             <input
