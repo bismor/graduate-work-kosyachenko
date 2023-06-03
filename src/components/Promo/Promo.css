@@ -46,6 +46,7 @@
   text-align: center;
   font-size: 0.75rem;
   line-height: 1rem;
+  opacity: 60%;
 }
 
 @media screen and (min-width: 768px) {
@@ -79,7 +80,6 @@
 
 @media screen and (min-width: 1280px) {
   .promo {
-    background-color: #073042;
     display: grid;
     padding: 4.6875rem 4.375rem;
     gap: 9.125rem 11.875rem;
@@ -87,38 +87,21 @@
   }
   
   .promo__title {
-    color: white;
-    font-weight: 400;
     font-size: 3.125rem;
     line-height: 3.625rem;
     text-align: start;
   }
   
   .promo__subtitle {
-    color: white;
-    font-weight: 400;
     font-size: 0.8125rem;
-    max-width: 19.375rem;
-    opacity: 50%;
+    line-height: 1rem;
+    width: 19.375rem;
     text-align: start;
   }
   
   .promo__description {
-    display: flex;
-    flex-direction: column;
     order: -1;
     align-items: flex-start;
-  }
-  
-  .promo__link {
-    text-decoration: none;
-    color: white;
-    padding: 0.625rem;
-    border: 0.0625rem solid rgba(255, 255, 255, 0.25);
-    border-radius: 0.25rem;
-    max-width: 8rem;
-    text-align: center;
-    font-size: 0.75rem;
   }
 }
 
