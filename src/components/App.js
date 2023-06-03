@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Main from './Main/Main'
+import Register from './Register/Register';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
             <Main />
           }
         />
+        <Route path='/signup'element={<Register />}/>
       </Routes>
     </div>
   );

@@ -1,0 +1,140 @@
+.authorization {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 30px 30px 30px;
+}
+
+.authorization__name {
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 50px 0 90px 0;
+}
+
+.authorization__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.authorization__section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.authorization__label {
+  display: flex;
+  flex-direction: column;
+  color: #8B8B8B;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  gap: 10px;
+}
+
+.authorization__input {
+  background-color: #2F2F2F;
+  color: white;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+}
+
+.authorization__input_error {
+  color: #EE3465;
+}
+
+.authorization__error {
+  color: #EE3465;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.authorization__error_active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.authorization__submit {
+  margin-top: 157px;
+  background-color: #4285F4;
+  color: white;
+  padding: 15px 0;
+  border: none;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  cursor: pointer;
+}
+
+.authorization__submit:hover {
+  opacity: 70%;
+}
+
+.authorization__text {
+  margin: 14px 0 0 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #8B8B8B;
+}
+
+.authorization__link {
+  color: #4285F4;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.authorization__link:hover {
+  opacity: 70%;
+}
+
+@media screen and (min-width: 768px) {
+  .authorization {
+    padding: 232px 186px;
+    align-items: flex-start;
+  }
+
+  .authorization__name {
+    margin: 40px 0;
+  }
+
+  .authorization__submit {
+    margin-top: 69px;
+    padding: 13px 0 15px 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .authorization__text {
+    margin: 16px 0 0 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .authorization__link {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .authorization {
+    padding: 70px 442px;
+  }
+
+}
