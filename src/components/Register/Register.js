@@ -4,38 +4,38 @@ import  "./Register.css"
 
 export default function Register() {
   return (
-    <div className="authorization">
+    <div className="register">
       <Logo/>
-      <h1 className="authorization__name">Добро Пожаловать!</h1>
-      <form className="authorization__form">
-        <section className="authorization__section">
-          <label className="authorization__label"> Имя
+      <h1 className="register__name">Добро Пожаловать!</h1>
+      <form className="register__form">
+        <section className="register__section">
+          <label className="register__label"> Имя
             <input
               name="name"
               type="name"
-              className="authorization__input"
+              className="register__input"
               placeholder="Виталий"
             ></input>
           </label>
-          <label className="authorization__label">E-mail
+          <label className="register__label">E-mail
             <input
               name="email"
               type="email"
-              className="authorization__input"
+              className="register__input"
             ></input>
           </label>
-          <label className="authorization__label">Пароль
+          <label className="register__label">Пароль
             <input
               name="password"
               type="password"
-              className="authorization__input authorization__input_error"
+              className="register__input register__input_error"
             ></input>
-            <span className="authorization__error authorization__error_active">Что-то пошло нетак...</span>
+            <span className="register__error register__error_active">Что-то пошло нетак...</span>
           </label>
         </section>
-        <button className="authorization__submit">Зарегистрироваться</button>
-        <p className="authorization__text">
-          Уже зарегистрировались? <Link to="/signin" className="authorization__link">Войти</Link>
+        <button className="register__submit">Зарегистрироваться</button>
+        <p className="register__text">
+          Уже зарегистрировались? <Link to="/signin" className="register__link">Войти</Link>
         </p>
       </form>
     </div>

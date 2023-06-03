@@ -1,11 +1,11 @@
-.authorization {
+.register {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 56px 30px 30px 30px;
 }
 
-.authorization__name {
+.register__name {
   text-align: center;
   color: white;
   font-weight: 500;
@@ -14,19 +14,21 @@
   margin: 50px 0 90px 0;
 }
 
-.authorization__form {
+.register__form {
   display: flex;
   flex-direction: column;
   width: 100%;
+  align-items: center;
 }
 
-.authorization__section {
+.register__section {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
-.authorization__label {
+.register__label {
   display: flex;
   flex-direction: column;
   color: #8B8B8B;
@@ -36,7 +38,7 @@
   gap: 10px;
 }
 
-.authorization__input {
+.register__input {
   background-color: #2F2F2F;
   color: white;
   font-weight: 400;
@@ -47,11 +49,11 @@
   border-radius: 8px;
 }
 
-.authorization__input_error {
+.register__input_error {
   color: #EE3465;
 }
 
-.authorization__error {
+.register__error {
   color: #EE3465;
   font-weight: 400;
   font-size: 10px;
@@ -60,12 +62,12 @@
   opacity: 0;
 }
 
-.authorization__error_active {
+.register__error_active {
   visibility: visible;
   opacity: 1;
 }
 
-.authorization__submit {
+.register__submit {
   margin-top: 157px;
   background-color: #4285F4;
   color: white;
@@ -76,13 +78,14 @@
   font-size: 12px;
   line-height: 15px;
   cursor: pointer;
+  width: 100%;
 }
 
-.authorization__submit:hover {
+.register__submit:hover {
   opacity: 70%;
 }
 
-.authorization__text {
+.register__text {
   margin: 14px 0 0 0;
   font-weight: 400;
   font-size: 12px;
@@ -90,7 +93,7 @@
   color: #8B8B8B;
 }
 
-.authorization__link {
+.register__link {
   color: #4285F4;
   font-weight: 400;
   font-size: 12px;
@@ -99,41 +102,41 @@
   cursor: pointer;
 }
 
-.authorization__link:hover {
+.register__link:hover {
   opacity: 70%;
 }
 
 @media screen and (min-width: 768px) {
-  .authorization {
+  .register {
     padding: 232px 186px;
     align-items: flex-start;
   }
 
-  .authorization__name {
+  .register__name {
     margin: 40px 0;
   }
 
-  .authorization__submit {
+  .register__submit {
     margin-top: 69px;
     padding: 13px 0 15px 0;
     font-size: 14px;
     line-height: 17px;
   }
 
-  .authorization__text {
+  .register__text {
     margin: 16px 0 0 0;
     font-size: 14px;
     line-height: 17px;
   }
 
-  .authorization__link {
+  .register__link {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
 @media screen and (min-width: 1280px) {
-  .authorization {
+  .register {
     padding: 70px 442px;
   }
 
