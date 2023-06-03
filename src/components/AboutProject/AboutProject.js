@@ -29,7 +29,7 @@ export default function AboutProject() {
           <a href="https://github.com/bismor" title='Адаптивный сайт' className='aboutproject__link'>Адаптивный сайт</a>
           <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
         </div>
-        <div className="aboutproject__container-link">
+        <div className="aboutproject__container-link aboutproject__link-none">
           <a href="https://github.com/bismor" title='Одностраничное приложение' className='aboutproject__link'>Одностраничное приложение</a>
           <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
         </div>
