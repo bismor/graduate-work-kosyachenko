@@ -28,6 +28,10 @@
   padding: 0.3125rem 0.75rem;
 }
 
+.header__link:hover {
+  opacity: 70%;
+}
+
 @media screen and (min-width: 768px) {
   .header {
     padding: 1.125rem 1.875rem;

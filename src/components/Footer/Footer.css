@@ -52,6 +52,10 @@
   line-height: 0.9375rem;
 }
 
+.footer__link:hover {
+  opacity: 70%;
+}
+
 @media screen and (min-width: 768px) {
   .footer {
     padding: 4.9375rem 1.875rem 1.25rem 1.875rem;

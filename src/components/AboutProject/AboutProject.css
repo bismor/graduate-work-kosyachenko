@@ -94,6 +94,14 @@
   border-bottom: solid 0.0625rem #424242;
 }
 
+.aboutproject__git:hover {
+  opacity: 70%;
+}
+
+.aboutproject__link:hover {
+  opacity: 70%;
+}
+
 .aboutproject__arrow {
   width: 1.125rem;
 }

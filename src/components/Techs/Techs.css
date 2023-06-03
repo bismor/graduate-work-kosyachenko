@@ -56,6 +56,10 @@
   padding: 1.3125rem 0 ;
 }
 
+.techs__cell:hover {
+  opacity: 70%;
+}
+
 @media screen and (min-width: 768px) {
   .techs {
     padding: 5.625rem 3.125rem;

@@ -40,13 +40,16 @@
   text-decoration: none;
   color: white;
   padding: 0.625rem;
-  border: 0.0625rem solid rgba(255, 255, 255, 0.25);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.6);
   border-radius: 0.1875rem;
   max-width: 8.0625rem;
   text-align: center;
   font-size: 0.75rem;
   line-height: 1rem;
-  opacity: 60%;
+}
+
+.promo__link:hover {
+  opacity: 70%;
 }
 
 @media screen and (min-width: 768px) {
