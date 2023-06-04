@@ -1,13 +1,21 @@
 import Logo from "../ui/Logo/Logo"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import  "./Register.css"
 
-export default function Register() {
+export default function Register({setloggedIn}) {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setloggedIn(true);
+    navigate("/profile", { replace: true });
+  };
+
   return (
     <div className="register">
       <Logo/>
       <h1 className="register__name">Добро Пожаловать!</h1>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
         <section className="register__section">
           <label className="register__label"> Имя
             <input
