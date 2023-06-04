@@ -6,6 +6,7 @@ import Register from "./Register/Register";
 import Login from "./Login/Login";
 import Profile from "./Profile/Profile";
 import NotFound from "./NotFound/NotFound";
+import Movies from "./Movies/Movies";
 
 export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
@@ -63,6 +64,12 @@ export default function App() {
           }
         />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/movies" element={<Movies
+          loggedIn={loggedIn}
+          isHamburger={isHamburger}
+          setIsHamburger={setIsHamburger}
+          onHandleHamburger={onHandleHamburger}
+        />}/>
       </Routes>
     </div>
   );

@@ -19,14 +19,14 @@ export default function AuthMobile({isHamburger, setIsHamburger, onHandleHamburg
                     </li>
                     <li className='auth-mobile__list-item'>
                         <NavLink
-                            to='movies'
+                            to='/movies'
                             className='auth-mobile__link'
                             onClick={ () => setTimeout(() => setIsHamburger(false)) }
                         >Фильмы</NavLink>
                     </li>
                     <li className='auth-mobile__list-item'>
                         <NavLink
-                            to='saved-movies'
+                            to='/saved-movies'
                             className='auth-mobile__link'
                             onClick={ () => setTimeout(() => setIsHamburger(false)) }
                         >Сохранённые фильмы</NavLink>
