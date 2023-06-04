@@ -7,6 +7,7 @@ import Login from "./Login/Login";
 import Profile from "./Profile/Profile";
 import NotFound from "./NotFound/NotFound";
 import Movies from "./Movies/Movies";
+import SavedMovies from "./SavedMovies/SavedMovies";
 
 export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
@@ -70,6 +71,13 @@ export default function App() {
           setIsHamburger={setIsHamburger}
           onHandleHamburger={onHandleHamburger}
         />}/>
+        <Route path='/saved-movies' element={<SavedMovies
+          loggedIn={loggedIn}
+          isHamburger={isHamburger}
+          setIsHamburger={setIsHamburger}
+          onHandleHamburger={onHandleHamburger}
+          />}
+        />
       </Routes>
     </div>
   );

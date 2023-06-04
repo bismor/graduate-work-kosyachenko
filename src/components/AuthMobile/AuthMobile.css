@@ -29,7 +29,7 @@
   padding: 0;
   border: 0;
   outline: none;
-  margin: 15px 15px 0;
+  margin: 18px 15px 0;
   transition: .1s ease;
   cursor: pointer;
 }
@@ -42,7 +42,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 104px;
+  gap: 2px;
 }
 
 .auth-mobile__list-item {
@@ -77,7 +78,7 @@
 .auth-mobile__container:last-child {
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 55px;
+  margin-bottom: 42px;
 }
 
 .auth-mobile__link_type_account {
@@ -90,28 +91,31 @@
 }
 
 .auth-mobile__account {
-  font-size: .8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 12px;
   margin: 0;
-  padding-right: 7px;
+  padding: 8px 20px;
+  background-color: #2F2F2F;
+  border-radius: 20px;
 }
 
 @media (min-width: 768px) {
   .auth-mobile {
-      width: 51vw;
+      width: 68vw;
   }
 
   .auth-mobile__close {
-      margin: 22px 22px 0;
+      margin: 27px 27px 0;
   }
 
   .auth-mobile__navigation {
-      margin-top: 105px;
+      margin-top: 110px;
   }
 
   .auth-mobile__list-item:not(:first-child) {
       margin-top: 22px;
+      padding-bottom: 4px;
   }
 
   .auth-mobile__link {
