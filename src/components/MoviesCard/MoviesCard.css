@@ -6,7 +6,7 @@
 .movies__block {
   display: flex;
   justify-content: space-between;
-  margin: 15px 15px 0;
+  margin: 14px 12px 14px 10px;
 }
 
 .movies__link {
@@ -40,7 +40,7 @@
   font-size: .6875rem;
   line-height: 13px;
   user-select: none;
-  margin: 0 0 0 15px;
+  margin: 0 0 14px 12px;
 }
 
 .movies__button {
@@ -68,11 +68,10 @@
 
 .movies__image {
   width: 100%;
-  height: 150px;
+  height: 168px;
   cursor: pointer;
   transition: .3s ease;
-  margin-top: 15px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .movies__image:hover {

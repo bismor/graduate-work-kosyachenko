@@ -1,5 +1,5 @@
 .hamburger {
-    width: 24px;
+    width: 22px;
     height: 24px;
     background-color: transparent;
     padding: 0;
@@ -20,7 +20,7 @@
     background-color: #fff;
     display: block;
     content: "";
-    height: 2px;
+    height: 2.5px;
 }
 
 .hamburger span {
