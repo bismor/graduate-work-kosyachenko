@@ -7,15 +7,23 @@ import AboutProject from '../AboutProject/AboutProject';
 import Footer from '../Footer/Footer';
 
 
-export default function Main() {
+export default function Main({loggedIn, isHamburger, setIsHamburger, onHandleHamburger}) {
+  console.log(loggedIn)
   return (
     <>
-      <Header/>
-      <Promo/>
-      <NavTab/>
-      <Techs/>
-      <AboutProject/>
-      <Footer/>
+      <Header
+        loggedIn={loggedIn}
+        isHamburger={isHamburger}
+        setIsHamburger={setIsHamburger}
+        onHandleHamburger={onHandleHamburger}
+      />
+      <main className='main'>
+        <Promo/>
+        <NavTab/>
+        <Techs/>
+        <AboutProject/>
+        <Footer/>
+      </main>
     </>
   );
 }

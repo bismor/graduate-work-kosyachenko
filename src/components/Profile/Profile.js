@@ -1,17 +1,22 @@
 import './Profile.css'
 import Header from '../Header/Header'
-import { useNavigate } from "react-router-dom";
 
-export default function Profile({setloggedIn}) {
-  const navigate = useNavigate();
+export default function Profile({loggedIn, onLogout, isHamburger, setIsHamburger, onHandleHamburger}) {
+
   function handleLogout() {
-    setloggedIn(false)
-    navigate("/", { replace: true });
+    onLogout()
   } 
+
+
 
   return (
     <>
-      <Header/>
+      <Header
+        loggedIn={loggedIn}
+        isHamburger={isHamburger}
+        setIsHamburger={setIsHamburger}
+        onHandleHamburger={onHandleHamburger}
+      />
       <div className='profile'>
           <h2 className='profile__heading'>Привет, Виталий!</h2>
           <div className='profile__info profile__info_underline'>
