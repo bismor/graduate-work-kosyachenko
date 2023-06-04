@@ -41,7 +41,6 @@ export default function AuthMobile({isHamburger, setIsHamburger, onHandleHamburg
                     onClick={ () => setTimeout(() => setIsHamburger(false)) }
                 >
                     <p className='auth-mobile__account'>Аккаунт</p>
-                    <div className='auth-mobile__image'/>
                 </NavLink>
             </div>
         </div>

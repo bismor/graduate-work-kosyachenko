@@ -21,7 +21,6 @@ export default function App() {
   async function signIn() {
     setloggedIn(true);
     navigate("/profile", { replace: true });
-    console.log(loggedIn);
   }
 
   function onLogout() {

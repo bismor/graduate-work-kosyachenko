@@ -8,7 +8,6 @@ import Footer from '../Footer/Footer';
 
 
 export default function Main({loggedIn, isHamburger, setIsHamburger, onHandleHamburger}) {
-  console.log(loggedIn)
   return (
     <>
       <Header

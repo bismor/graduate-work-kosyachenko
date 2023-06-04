@@ -11,8 +11,6 @@ export default function Header({
   setIsHamburger,
   onHandleHamburger,
 }) {
-
-  console.log(loggedIn)
   return (
     <>
       {loggedIn ? (
@@ -22,7 +20,7 @@ export default function Header({
           onHandleHamburger={onHandleHamburger}
         />
       ) : null}
-      <header className="header">
+      <header className={`header ${loggedIn ? `` : 'header_color' }`}>
         <Logo />
         {loggedIn ? (
           <>
