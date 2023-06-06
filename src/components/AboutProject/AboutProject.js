@@ -15,22 +15,22 @@ export default function AboutProject() {
             С 2017 начал администировать игровой проект на языке Lua.
             После этого прошел курс по веб-разработке и сейчас в активном поиске работы.
           </p>
-          <a href="https://github.com/bismor" title='GitHub' className='aboutproject__git'>GitHub</a>
+          <a href="https://github.com/bismor" target="_blank" rel="noreferrer" title='GitHub' className='aboutproject__git'>GitHub</a>
         </div>
         <div className="aboutproject__image"></div>
       </div>
       <h2 className="aboutproject__portfolio">Портфолио</h2>
       <div className="aboutproject__container">
         <div className="aboutproject__container-link">
-          <a href="https://github.com/bismor" title='Статичный сайт' className='aboutproject__link'>Статичный сайт</a>
+          <a href="https://github.com/bismor" target="_blank" rel="noreferrer" title='Статичный сайт' className='aboutproject__link'>Статичный сайт</a>
           <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
         </div>
         <div className="aboutproject__container-link">
-          <a href="https://github.com/bismor" title='Адаптивный сайт' className='aboutproject__link'>Адаптивный сайт</a>
+          <a href="https://github.com/bismor" target="_blank" rel="noreferrer" title='Адаптивный сайт' className='aboutproject__link'>Адаптивный сайт</a>
           <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
         </div>
         <div className="aboutproject__container-link aboutproject__link-none">
-          <a href="https://github.com/bismor" title='Одностраничное приложение' className='aboutproject__link'>Одностраничное приложение</a>
+          <a href="https://github.com/bismor" target="_blank" rel="noreferrer" title='Одностраничное приложение' className='aboutproject__link'>Одностраничное приложение</a>
           <img src={arrow} className="aboutproject__arrow" alt='Стрелочка'/>
         </div>
       </div>
