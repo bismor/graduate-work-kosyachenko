@@ -1,6 +1,6 @@
 import "./Header.css";
 import Logo from "../ui/Logo/Logo";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AuthMobile from "../AuthMobile/AuthMobile";
 import Navigation from "../Navigation/Navigation";
 import Hamburger from "../ui/Hamburger/Hamburger";
@@ -11,6 +11,11 @@ export default function Header({
   setIsHamburger,
   onHandleHamburger,
 }) {
+
+  const location = useLocation()
+
+  const headerColor = location.pathname  === '/' ? 'header header_color' : 'header'
+
   return (
     <>
       {loggedIn ? (
@@ -20,7 +25,7 @@ export default function Header({
           onHandleHamburger={onHandleHamburger}
         />
       ) : null}
-      <header className={`header ${loggedIn ? `` : 'header_color' }`}>
+      <header className={headerColor}>
         <Logo />
         {loggedIn ? (
           <>
