@@ -10,13 +10,11 @@ export default function Login({setloggedIn, signIn}) {
     signIn()
   };
 
-
-
   return (
     <div className="login">
       <Logo/>
-      <h1 className="login__name">Рады видеть!</h1>
       <form className="login__form" onSubmit={handleSubmit}>
+        <h1 className="login__name">Рады видеть!</h1>
         <section className="login__section">
           <label className="login__label">E-mail
             <input

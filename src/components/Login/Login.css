@@ -49,6 +49,14 @@
   border-radius: 0.5rem;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5500s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
+}
+
 .login__submit {
   margin-top: 16.6875rem;
   background-color: #4285F4;
