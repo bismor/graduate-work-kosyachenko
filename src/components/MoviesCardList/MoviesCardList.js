@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard'
 
 export default function MoviesCardList() {
   return (
-    <>
+    <div className='moviescardlist'>
       <div className='moviescardlist__table'>
         <MoviesCard/>
       </div>
@@ -12,6 +12,6 @@ export default function MoviesCardList() {
           className='moviescardlist__still'
         >Ещё</button>
       </div>
-    </>
+    </div>
   )
 }
