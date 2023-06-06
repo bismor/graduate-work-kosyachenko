@@ -13,9 +13,9 @@ export default function Register({setloggedIn}) {
 
   return (
     <div className="register">
-      <Logo/>
-      <h1 className="register__name">Добро Пожаловать!</h1>
       <form className="register__form" onSubmit={handleSubmit}>
+        <Logo/>
+        <h1 className="register__name">Добро Пожаловать!</h1>
         <section className="register__section">
           <label className="register__label"> Имя
             <input
@@ -42,10 +42,10 @@ export default function Register({setloggedIn}) {
           </label>
         </section>
         <button className="register__submit">Зарегистрироваться</button>
-        <p className="register__text">
-          Уже зарегистрировались? <Link to="/signin" className="register__link">Войти</Link>
-        </p>
       </form>
+      <p className="register__text">
+        Уже зарегистрировались? <Link to="/signin" className="register__link">Войти</Link>
+      </p>
     </div>
   )
 }

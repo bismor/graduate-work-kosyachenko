@@ -1,8 +1,8 @@
 .login {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 3.5rem 1.875rem 1.875rem 1.875rem;
+  align-items: center;
 }
 
 .login__name {
@@ -17,7 +17,7 @@
 .login__form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 260px;
   align-items: center;
 }
 
@@ -99,11 +99,15 @@ input:-webkit-autofill:active {
 @media screen and (min-width: 768px) {
   .login {
     padding: 14.5rem 11.625rem;
+  }
+
+  .logo {
     align-items: flex-start;
   }
 
   .login__name {
     margin: 2.5rem 0;
+    text-align: start;
   }
 
   .login__submit {
@@ -113,10 +117,16 @@ input:-webkit-autofill:active {
     line-height: 1.0625rem;
   }
 
+  .login__form {
+    width: 396px;
+    align-items: flex-start;
+  }
+
   .login__text {
     margin: 1rem 0 0 0;
     font-size: 0.875rem;
     line-height: 1.0625rem;
+    text-align: center;
   }
 
   .login__link {

@@ -11,8 +11,8 @@ export default function Login({signIn}) {
 
   return (
     <div className="login">
-      <Logo/>
       <form className="login__form" onSubmit={handleSubmit}>
+        <Logo/>
         <h1 className="login__name">Рады видеть!</h1>
         <section className="login__section">
           <label className="login__label">E-mail
@@ -31,10 +31,10 @@ export default function Login({signIn}) {
           </label>
         </section>
         <button className="login__submit">Войти</button>
-        <p className="login__text">
-          Ещё не зарегистрированы? <Link to="/signup" className="login__link">Регистрация</Link>
-        </p>
       </form>
+      <p className="login__text">
+        Ещё не зарегистрированы? <Link to="/signup" className="login__link">Регистрация</Link>
+      </p>
     </div>
   )
 }

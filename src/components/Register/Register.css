@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 56px 30px 30px 30px;
+  padding: 3.5rem 1.875rem 1.875rem 1.875rem;
 }
 
 .register__name {
@@ -11,13 +11,13 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  margin: 50px 0 90px 0;
+  margin: 3.125rem 0 5.625rem 0;
 }
 
 .register__form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 260px;
   align-items: center;
 }
 
@@ -47,6 +47,14 @@
   padding: 15px;
   border: none;
   border-radius: 8px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5500s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
 }
 
 .register__input_error {
@@ -109,11 +117,15 @@
 @media screen and (min-width: 768px) {
   .register {
     padding: 232px 186px;
+  }
+
+  .logo {
     align-items: flex-start;
   }
 
   .register__name {
     margin: 40px 0;
+    text-align: start;
   }
 
   .register__submit {
@@ -123,10 +135,16 @@
     line-height: 17px;
   }
 
+  .register__form {
+    width: 396px;
+    align-items: flex-start;
+  }
+
   .register__text {
     margin: 16px 0 0 0;
     font-size: 14px;
     line-height: 17px;
+    text-align: center;
   }
 
   .register__link {
