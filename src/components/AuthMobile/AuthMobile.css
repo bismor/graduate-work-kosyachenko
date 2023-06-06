@@ -100,7 +100,7 @@
   border-radius: 20px;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .auth-mobile {
       width: 68vw;
   }
@@ -127,7 +127,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 769px) {
   .auth-mobile {
       display: none;
   }

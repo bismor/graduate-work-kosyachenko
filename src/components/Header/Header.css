@@ -73,6 +73,12 @@
   }
 }
 
+@media screen and (min-width: 769px) {
+  .header__link_type_account {
+    display: flex;
+  }
+}
+
 @media screen and (min-width: 1280px) {
   .header {
     padding: 1.125rem 4.375rem;
@@ -90,8 +96,5 @@
     padding: 0.5rem 1.25rem;
   }
 
-  .header__link_type_account {
-    display: flex;
-  }
 }
 

@@ -27,7 +27,7 @@
     margin: 6px 0;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 769px) {
     .hamburger {
         display: none;
     }
