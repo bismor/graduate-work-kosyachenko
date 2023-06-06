@@ -2,6 +2,7 @@ import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Footer from "../Footer/Footer";
 
 export default function Movies({loggedIn, isHamburger, setIsHamburger, onHandleHamburger}) {
   return (
@@ -18,6 +19,7 @@ export default function Movies({loggedIn, isHamburger, setIsHamburger, onHandleH
             <MoviesCardList/>
         </section>
       </>
+      <Footer/>
     </>
   )
 }
