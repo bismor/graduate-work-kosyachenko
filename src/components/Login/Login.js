@@ -1,9 +1,8 @@
 import './Login.css';
 import Logo from "../ui/Logo/Logo"
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Login({setloggedIn, signIn}) {
-  const navigate = useNavigate();
+export default function Login({signIn}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();

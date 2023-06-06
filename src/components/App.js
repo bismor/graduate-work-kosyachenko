@@ -50,7 +50,7 @@ export default function App() {
         />
         <Route
           path="/signin"
-          element={<Login setloggedIn={setloggedIn} signIn={signIn} />}
+          element={<Login signIn={signIn} />}
         />
         <Route
           path="/profile"
