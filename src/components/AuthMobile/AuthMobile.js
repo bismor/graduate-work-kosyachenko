@@ -10,7 +10,7 @@ export default function AuthMobile({
     <div className={`auth-mobile${isHamburger ? ` auth-mobile_opened` : ""}`}>
       <div className="auth-mobile__container">
         <button className="auth-mobile__close" onClick={onHandleHamburger} />
-        <nav className="auth-mobile__navigation">
+        <ul className="auth-mobile__navigation">
           <li className="auth-mobile__list-item">
             <NavLink
               to="/"
@@ -38,7 +38,7 @@ export default function AuthMobile({
               Сохранённые фильмы
             </NavLink>
           </li>
-        </nav>
+        </ul>
       </div>
       <div className="auth-mobile__container">
         <NavLink
