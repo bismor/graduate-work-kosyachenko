@@ -8,8 +8,8 @@ export default function Footer() {
       <div className='footer__container'>
         <p className='footer__text'>&copy; 2023</p>
         <div className='footer__container-link'>
-            <a href='https://practicum.yandex.ru/' title='Практикум' className='footer__link'>Яндекс.Практикум</a>
-            <a href='https://github.com/Hotess' title='Github' className='footer__link'>Github</a>
+            <a href='https://practicum.yandex.ru/' target="_blank" rel="noreferrer" title='Практикум' className='footer__link'>Яндекс.Практикум</a>
+            <a href='https://github.com/Hotess' target="_blank" rel="noreferrer" title='Github' className='footer__link'>Github</a>
         </div>
       </div>
     </footer>
