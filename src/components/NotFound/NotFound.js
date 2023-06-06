@@ -5,7 +5,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   function handleGoBack() {
-    navigate("/profile", { replace: true });
+    navigate(-1);
   }
 
   return (
