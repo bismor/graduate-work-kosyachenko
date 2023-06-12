@@ -16,38 +16,41 @@ class MainApi {
       headers: this._headers,
     })
       .then(this._resToJSON)
-       .then((respawns) => {return respawns.data})
+      .then((respawns) => {
+        return respawns.data;
+      });
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
-    }).then(this._resToJSON)
-    .then((respawns) => {return respawns.data})
+    })
+      .then(this._resToJSON)
+      .then((respawns) => {
+        return respawns.data;
+      });
   }
 
   addLikeMovie(id) {
-    return fetch(
-      `${this._baseUrl}movies/` + id + "/likes",
-      {
-        method: "PUT",
-        headers: this._headers,
-      }
-    )
+    return fetch(`${this._baseUrl}movies/` + id + "/likes", {
+      method: "PUT",
+      headers: this._headers,
+    })
       .then(this._resToJSON)
-      .then((respawns) => {return respawns.data})
+      .then((respawns) => {
+        return respawns.data;
+      });
   }
 
   removeLikeMovie(id) {
-    return fetch(
-      `${this._baseUrl}movies/` + id + "/likes",
-      {
-        method: "DELETE",
-        headers: this._headers,
-      }
-    )
+    return fetch(`${this._baseUrl}movies/` + id + "/likes", {
+      method: "DELETE",
+      headers: this._headers,
+    })
       .then(this._resToJSON)
-      .then((respawns) => {return respawns.data})
+      .then((respawns) => {
+        return respawns.data;
+      });
   }
 
   setUserInfo(formvalue) {
@@ -59,38 +62,37 @@ class MainApi {
         email: formvalue.email,
       }),
     })
-    .then(this._resToJSON)
-    .then((respawns) => {return respawns.data});
+      .then(this._resToJSON)
+      .then((respawns) => {
+        return respawns.data;
+      });
   }
 
   changeAuthToken(token) {
     this._headers["authorization"] = `Bearer ${token}`;
   }
-  
+
   signUp(name, email, password) {
-    console.log(name, email, password)
     return fetch(`${this._baseUrl}signup`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
         email: email,
-        password: password
+        password: password,
       }),
-
-    }).then(this._resToJSON)
+    }).then(this._resToJSON);
   }
 
   checkJwtToken(token) {
     return fetch(`${this._baseUrl}users/me`, {
       method: "GET",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-    })
-    .then(this._resToJSON)
+    }).then(this._resToJSON);
   }
 
   signIn(email, password) {
@@ -99,10 +101,9 @@ class MainApi {
       headers: this._headers,
       body: JSON.stringify({
         email: email,
-        password: password
+        password: password,
       }),
-    })
-    .then(this._resToJSON)
+    }).then(this._resToJSON);
   }
 }
 

@@ -13,62 +13,38 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function App() {
+  const [loggedIn, setloggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
-  const [loggedIn, setloggedIn] = useState(false);
   const [userEmail, setUseremail] = useState("");
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
+  const [successRequest, setSuccessRequest] = useState(false);
 
   const navigate = useNavigate();
 
-  const tokenCheck = useCallback(() => {
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
         mainApi
           .changeAuthToken(token)
           .checkJwtToken(token)
-          .then((res) => {
-            if (res) {
-              setloggedIn(true);
-              setUseremail(res.data.email);
-              navigate("/", { replace: true });
-            }
+          .then(({ name, email, _id }) => {
+            setloggedIn(true);
+            setCurrentUser({ name, email, _id });
+            navigate("/", { replace: true });
           })
           .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            setloggedIn(false);
+            localStorage.removeItem("jwt");
+            navigate("/", { replace: true });
+            console.log(`Ошибка токена: ${err}`); // выведем ошибку в консоль
           });
       }
-    } else {
-      setUseremail("");
     }
-  }, [navigate]);
-
-  useEffect(() => {
-    tokenCheck();
-    if (loggedIn) {
-      mainApi
-        .getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch((err) => {
-          console.log(err); // выведем ошибку в консоль
-        });
-
-      const getLikeMovieData = async () => {
-        try {
-          const cards = await mainApi.getInitialLikeMovie();
-          setCards(cards);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      getLikeMovieData();
-    }
-  }, [loggedIn, tokenCheck]);
+  }, []);
 
   /** Открыть/закрыть гамбургер */
   function onHandleHamburger() {
@@ -79,7 +55,7 @@ export default function App() {
     mainApi
       .signUp(name, email, password)
       .then(() => {
-        navigate("/signin", { replace: true });
+        signIn(email, password);
       })
       .catch((err) => {
         setErrorRequest(true);
@@ -88,14 +64,38 @@ export default function App() {
       });
   }
 
-  async function signIn() {
-    setloggedIn(true);
-    navigate("/profile", { replace: true });
+  async function signIn(email, password) {
+    await mainApi
+      .signIn(email, password)
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        setloggedIn(true);
+        navigate("/", { replace: true });
+      })
+      .catch((err) => {
+        setErrorRequest(true);
+
+        console.log(`Ошибка при авторизации: ${err}`);
+      });
   }
 
   function onLogout() {
+    localStorage.removeItem("token");
     setloggedIn(false);
     navigate("/", { replace: true });
+  }
+
+  function handleUpdateUser(userInfo) {
+    mainApi
+      .setUserInfo(userInfo)
+      .then((data) => {
+        setCurrentUser(data);
+        setErrorRequest(false);
+        setSuccessRequest(true);
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
   }
 
   return (
@@ -123,7 +123,16 @@ export default function App() {
               />
             }
           />
-          <Route path="/signin" element={<Login signIn={signIn} />} />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                signIn={signIn}
+                errorRequest={errorRequest}
+                setErrorRequest={setErrorRequest}
+              />
+            }
+          />
 
           <Route
             path="/profile"
