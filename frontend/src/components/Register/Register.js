@@ -20,7 +20,6 @@ export default function Register({
   }, [registerNameField.value]);
 
   useEffect(() => {
-    (console.log(registerEmailField.isValid))
     registerEmailField.isValid
       ? registerEmailField.setIsDirty(false)
       : registerEmailField.setIsDirty(true);
@@ -41,7 +40,6 @@ export default function Register({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('yes')
     onRegister(
       registerNameField.value,
       registerEmailField.value,
@@ -51,7 +49,7 @@ export default function Register({
 
   return (
     <div className="register">
-      <form className="register__form" >
+      <form className="register__form">
         <Logo />
         <h1 className="register__name">Добро Пожаловать!</h1>
         <section className="register__section">
@@ -61,7 +59,9 @@ export default function Register({
             <input
               name="RegisterName"
               type="text"
-              className={`register__input${registerNameField.isDirty ? ' register__input_error' : ''}`}
+              className={`register__input${
+                registerNameField.isDirty ? " register__input_error" : ""
+              }`}
               placeholder="Введите имя"
               required
               minLength="2"
@@ -89,7 +89,9 @@ export default function Register({
               required
               minLength="6"
               maxLength="30"
-              className={`register__input${registerEmailField.isDirty ? ' register__input_error' : ''}`}
+              className={`register__input${
+                registerEmailField.isDirty ? " register__input_error" : ""
+              }`}
               autoComplete="new-password"
               onChange={(event) => {
                 registerEmailField.onChange(event, setErrorRequest);
@@ -114,12 +116,18 @@ export default function Register({
               minLength="6"
               maxLength="30"
               autoComplete="new-password"
-              className={`register__input${registerPasswordField.isDirty ? ' register__input_error' : ''}`}
+              className={`register__input${
+                registerPasswordField.isDirty ? " register__input_error" : ""
+              }`}
               onChange={(event) => {
                 registerPasswordField.onChange(event, setErrorRequest);
               }}
             ></input>
-            <span className="register__error register__error_active">
+            <span
+              className={`register__error${
+                registerPasswordField.isDirty ? " register__error_active" : ""
+              }`}
+            >
               {registerPasswordField.isDirty
                 ? registerPasswordField.isError
                 : ""}
@@ -135,12 +143,21 @@ export default function Register({
           >
             Ошибка при регистрации
           </span>
-          <button className="register__submit"
-            type='button'
-            aria-label='Авторизоваться'
+          <button
+            className="register__submit"
+            type="button"
+            aria-label="Авторизоваться"
             onClick={handleSubmit}
-            disabled={ !(registerNameField.isValid && registerEmailField.isValid && registerPasswordField.isValid) || errorRequest }
-          >Зарегистрироваться</button>
+            disabled={
+              !(
+                registerNameField.isValid &&
+                registerEmailField.isValid &&
+                registerPasswordField.isValid
+              ) || errorRequest
+            }
+          >
+            Зарегистрироваться
+          </button>
           <p className="register__text">
             Уже зарегистрировались?{" "}
             <Link to="/signin" className="register__link">
