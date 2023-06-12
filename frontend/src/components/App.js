@@ -9,7 +9,6 @@ import NotFound from "./NotFound/NotFound";
 import Movies from "./Movies/Movies";
 import SavedMovies from "./SavedMovies/SavedMovies";
 import mainApi from "../utils/mainApi";
-import auth from "../utils/Auth";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -26,8 +25,8 @@ export default function App() {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
-        mainApi.changeAuthToken(token);
-        auth
+        mainApi
+          .changeAuthToken(token)
           .checkJwtToken(token)
           .then((res) => {
             if (res) {
