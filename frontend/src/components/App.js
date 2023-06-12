@@ -10,6 +10,7 @@ import Movies from "./Movies/Movies";
 import SavedMovies from "./SavedMovies/SavedMovies";
 import api from "../utils/Api";
 import auth from "../utils/Auth";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function App() {
@@ -18,6 +19,8 @@ export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
   const [userEmail, setUseremail] = useState("");
   const [isHamburger, setIsHamburger] = useState(false);
+
+  const navigate = useNavigate();
 
   const tokenCheck = useCallback(() => {
     if (localStorage.getItem("token")) {
@@ -71,8 +74,6 @@ export default function App() {
     setIsHamburger(!isHamburger);
   }
 
-  const navigate = useNavigate();
-
   async function signIn() {
     setloggedIn(true);
     navigate("/profile", { replace: true });
@@ -103,41 +104,47 @@ export default function App() {
             element={<Register setloggedIn={setloggedIn} />}
           />
           <Route path="/signin" element={<Login signIn={signIn} />} />
+
           <Route
             path="/profile"
             element={
-              <Profile
+              <ProtectedRoute
+                element={Profile}
                 loggedIn={loggedIn}
                 onLogout={onLogout}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
-              />
+              ></ProtectedRoute>
             }
           />
-          <Route path="/*" element={<NotFound />} />
+
           <Route
             path="/movies"
             element={
-              <Movies
+              <ProtectedRoute
+                element={Movies}
                 loggedIn={loggedIn}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
-              />
+              ></ProtectedRoute>
             }
           />
+
           <Route
             path="/saved-movies"
             element={
-              <SavedMovies
+              <ProtectedRoute
+                element={SavedMovies}
                 loggedIn={loggedIn}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
-              />
+              ></ProtectedRoute>
             }
           />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
     </CurrentUserContext.Provider>
