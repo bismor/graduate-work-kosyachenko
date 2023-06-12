@@ -8,7 +8,7 @@ import Profile from "./Profile/Profile";
 import NotFound from "./NotFound/NotFound";
 import Movies from "./Movies/Movies";
 import SavedMovies from "./SavedMovies/SavedMovies";
-import mainApi from "../utils/mainApi";
+import mainApi from "../utils/Api/MainApi";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -18,6 +18,8 @@ export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
   const [userEmail, setUseremail] = useState("");
   const [isHamburger, setIsHamburger] = useState(false);
+  const [isPreloader, setIsPreloader] = useState(true);
+  const [errorRequest, setErrorRequest] = useState(false);
 
   const navigate = useNavigate();
 
@@ -73,6 +75,19 @@ export default function App() {
     setIsHamburger(!isHamburger);
   }
 
+  function onRegister(name, email, password) {
+    mainApi
+      .signUp(name, email, password)
+      .then(() => {
+        navigate("/signin", { replace: true });
+      })
+      .catch((err) => {
+        setErrorRequest(true);
+
+        console.log(`Ошибка при регистрации: ${err}`);
+      });
+  }
+
   async function signIn() {
     setloggedIn(true);
     navigate("/profile", { replace: true });
@@ -100,7 +115,13 @@ export default function App() {
           />
           <Route
             path="/signup"
-            element={<Register setloggedIn={setloggedIn} />}
+            element={
+              <Register
+                errorRequest={errorRequest}
+                setErrorRequest={setErrorRequest}
+                onRegister={onRegister}
+              />
+            }
           />
           <Route path="/signin" element={<Login signIn={signIn} />} />
 

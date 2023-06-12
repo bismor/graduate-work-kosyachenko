@@ -67,11 +67,13 @@ class MainApi {
     this._headers["authorization"] = `Bearer ${token}`;
   }
   
-  signUp(password, email) {
+  signUp(name, email, password) {
+    console.log(name, email, password)
     return fetch(`${this._baseUrl}signup`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
+        name: name,
         email: email,
         password: password
       }),

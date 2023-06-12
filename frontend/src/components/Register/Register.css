@@ -49,6 +49,7 @@
   border-radius: 8px;
 }
 
+input {outline:none;}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -68,6 +69,7 @@ input:-webkit-autofill:active {
   line-height: 12px;
   visibility: hidden;
   opacity: 0;
+  transition: .1s ease-in-out;
 }
 
 .register__error_active {
@@ -75,8 +77,24 @@ input:-webkit-autofill:active {
   opacity: 1;
 }
 
-.register__submit {
+.register__button-overlay {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__button-overlay {
   margin-top: 157px;
+  gap: 14px;
+}
+
+.register__submit:disabled {
+  opacity: .6;
+  cursor: auto;
+}
+
+.register__submit {
   background-color: #4285F4;
   color: white;
   padding: 15px 0;
@@ -94,7 +112,6 @@ input:-webkit-autofill:active {
 }
 
 .register__text {
-  margin: 14px 0 0 0;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
@@ -128,8 +145,12 @@ input:-webkit-autofill:active {
     text-align: start;
   }
 
-  .register__submit {
+  .register__button-overlay {
     margin-top: 69px;
+    gap: 16px;
+  }
+
+  .register__submit {
     padding: 13px 0 15px 0;
     font-size: 14px;
     line-height: 17px;
@@ -141,7 +162,6 @@ input:-webkit-autofill:active {
   }
 
   .register__text {
-    margin: 16px 0 0 0;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
