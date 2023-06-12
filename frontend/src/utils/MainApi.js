@@ -1,4 +1,4 @@
-class Api {
+class MainApi {
   constructor({ headers, baseUrl }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -11,8 +11,8 @@ class Api {
     return Promise.reject("Произошла ошибка");
   }
 
-  getInitialMovie() {
-    return fetch(`${this._baseUrl}cards`, {
+  getInitialLikeMovie() {
+    return fetch(`${this._baseUrl}movies`, {
       headers: this._headers,
     })
       .then(this._resToJSON)
@@ -28,7 +28,7 @@ class Api {
 
   addLikeMovie(id) {
     return fetch(
-      `${this._baseUrl}cards/` + id + "/likes",
+      `${this._baseUrl}movies/` + id + "/likes",
       {
         method: "PUT",
         headers: this._headers,
@@ -40,7 +40,7 @@ class Api {
 
   removeLikeMovie(id) {
     return fetch(
-      `${this._baseUrl}cards/` + id + "/likes",
+      `${this._baseUrl}movies/` + id + "/likes",
       {
         method: "DELETE",
         headers: this._headers,
@@ -66,13 +66,49 @@ class Api {
   changeAuthToken(token) {
     this._headers["authorization"] = `Bearer ${token}`;
   }
+  
+  signUp(password, email) {
+    return fetch(`${this._baseUrl}signup`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+
+    }).then(this._resToJSON)
+  }
+
+  checkJwtToken(token) {
+    return fetch(`${this._baseUrl}users/me`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}`
+      },
+    })
+    .then(this._resToJSON)
+  }
+
+  signIn(email, password) {
+    return fetch(`${this._baseUrl}signin`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+    })
+    .then(this._resToJSON)
+  }
 }
 
-const api = new Api({
+const mainApi = new MainApi({
   headers: {
     "Content-Type": "Application/JSON",
   },
-  baseUrl: process.env.JWT_SECRET,
+  baseUrl: process.env.REACT_APP_API_URL,
 });
 
-export default api;
+export default mainApi;

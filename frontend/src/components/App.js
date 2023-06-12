@@ -8,7 +8,7 @@ import Profile from "./Profile/Profile";
 import NotFound from "./NotFound/NotFound";
 import Movies from "./Movies/Movies";
 import SavedMovies from "./SavedMovies/SavedMovies";
-import api from "../utils/Api";
+import mainApi from "../utils/mainApi";
 import auth from "../utils/Auth";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -26,7 +26,7 @@ export default function App() {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
-        api.changeAuthToken(token);
+        mainApi.changeAuthToken(token);
         auth
           .checkJwtToken(token)
           .then((res) => {
@@ -48,7 +48,7 @@ export default function App() {
   useEffect(() => {
     tokenCheck();
     if (loggedIn) {
-      api
+      mainApi
         .getUserInfo()
         .then((data) => {
           setCurrentUser(data);
@@ -57,15 +57,15 @@ export default function App() {
           console.log(err); // выведем ошибку в консоль
         });
 
-      const getCardsData = async () => {
+      const getLikeMovieData = async () => {
         try {
-          const cards = await api.getInitialCards();
+          const cards = await mainApi.getInitialLikeMovie();
           setCards(cards);
         } catch (err) {
           console.log(err);
         }
       };
-      getCardsData();
+      getLikeMovieData();
     }
   }, [loggedIn, tokenCheck]);
 
