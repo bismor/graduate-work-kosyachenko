@@ -53,13 +53,13 @@ class MainApi {
       });
   }
 
-  setUserInfo(formvalue) {
+  setUserInfo(name, email) {
     return fetch(`${this._baseUrl}users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: formvalue.name,
-        email: formvalue.email,
+        name: name,
+        email: email,
       }),
     })
       .then(this._resToJSON)
@@ -96,6 +96,12 @@ class MainApi {
   }
 
   signIn(email, password) {
+    console.log(
+      JSON.stringify({
+        email: email,
+        password: password,
+      })
+    );
     return fetch(`${this._baseUrl}signin`, {
       method: "POST",
       headers: this._headers,

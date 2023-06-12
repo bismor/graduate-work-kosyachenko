@@ -15,8 +15,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [cards, setCards] = useState([]);
-  const [userEmail, setUseremail] = useState("");
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
@@ -24,17 +22,17 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const tokenCheck = useCallback(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
+        mainApi.changeAuthToken(token);
         mainApi
-          .changeAuthToken(token)
           .checkJwtToken(token)
-          .then(({ name, email, _id }) => {
+          .then((res) => {
             setloggedIn(true);
-            setCurrentUser({ name, email, _id });
-            navigate("/", { replace: true });
+            setCurrentUser(res.data.name, res.data.email, res.data._id);
+            console.log("currentUser", currentUser);
           })
           .catch((err) => {
             setloggedIn(false);
@@ -42,9 +40,25 @@ export default function App() {
             navigate("/", { replace: true });
             console.log(`Ошибка токена: ${err}`); // выведем ошибку в консоль
           });
+      } else {
+        console.log("ошибочка");
       }
     }
-  }, []);
+  }, [navigate]);
+
+  useEffect(() => {
+    tokenCheck();
+    if (loggedIn) {
+      mainApi
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+    }
+  }, [loggedIn, tokenCheck]);
 
   /** Открыть/закрыть гамбургер */
   function onHandleHamburger() {
@@ -64,10 +78,11 @@ export default function App() {
       });
   }
 
-  async function signIn(email, password) {
-    await mainApi
+  function signIn(email, password) {
+    mainApi
       .signIn(email, password)
       .then((data) => {
+        console.log("signin", data);
         localStorage.setItem("token", data.token);
         setloggedIn(true);
         navigate("/", { replace: true });
@@ -85,16 +100,16 @@ export default function App() {
     navigate("/", { replace: true });
   }
 
-  function handleUpdateUser(userInfo) {
+  function handleUpdateProfile(name, email) {
     mainApi
-      .setUserInfo(userInfo)
+      .setUserInfo(name, email)
       .then((data) => {
         setCurrentUser(data);
         setErrorRequest(false);
         setSuccessRequest(true);
       })
       .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
+        console.log(`Ошибка при обновлении пользователя: ${err}`);
       });
   }
 
@@ -120,7 +135,7 @@ export default function App() {
                 errorRequest={errorRequest}
                 setErrorRequest={setErrorRequest}
                 onRegister={onRegister}
-              />
+              ></Register>
             }
           />
           <Route
@@ -130,7 +145,7 @@ export default function App() {
                 signIn={signIn}
                 errorRequest={errorRequest}
                 setErrorRequest={setErrorRequest}
-              />
+              ></Login>
             }
           />
 
@@ -144,6 +159,10 @@ export default function App() {
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
+                errorRequest={errorRequest}
+                successRequest={successRequest}
+                setErrorRequest={setErrorRequest}
+                onUpdateProfile={handleUpdateProfile}
               ></ProtectedRoute>
             }
           />

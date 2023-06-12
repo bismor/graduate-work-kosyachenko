@@ -94,7 +94,7 @@ export default function Login({ signIn, errorRequest, setErrorRequest }) {
               errorRequest ? " login__error_active" : ""
             }`}
           >
-            Ошибка при регистрации
+            Ошибка при входе
           </span>
           <button
             className="login__submit"
