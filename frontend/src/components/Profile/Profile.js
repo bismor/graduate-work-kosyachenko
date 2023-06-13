@@ -34,7 +34,6 @@ export default function Profile({
   }, [profileEmailField.isValid]);
 
   useEffect(() => {
-    console.log("currentUser", currentUser);
     profileNameField.setValue(currentUser.name);
     profileEmailField.setValue(currentUser.email);
     profileNameField.setIsDirty(false);
@@ -54,7 +53,6 @@ export default function Profile({
   }
 
   function validateBtn() {
-    console.log(dirtyBtn);
     return (
       !(profileNameField.isValid && profileEmailField.isValid) ||
       errorRequest ||

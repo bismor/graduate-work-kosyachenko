@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useCallback, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Main from "./Main/Main";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
@@ -21,6 +21,7 @@ export default function App() {
   const [successRequest, setSuccessRequest] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const tokenCheck = useCallback(() => {
     if (localStorage.getItem("token")) {
@@ -32,7 +33,6 @@ export default function App() {
           .then((res) => {
             setloggedIn(true);
             setCurrentUser(res.data.name, res.data.email, res.data._id);
-            console.log("currentUser", currentUser);
           })
           .catch((err) => {
             setloggedIn(false);
@@ -40,11 +40,9 @@ export default function App() {
             navigate("/", { replace: true });
             console.log(`Ошибка токена: ${err}`); // выведем ошибку в консоль
           });
-      } else {
-        console.log("ошибочка");
       }
     }
-  }, [navigate]);
+  }, [location]);
 
   useEffect(() => {
     tokenCheck();

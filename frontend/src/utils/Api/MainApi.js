@@ -96,12 +96,6 @@ class MainApi {
   }
 
   signIn(email, password) {
-    console.log(
-      JSON.stringify({
-        email: email,
-        password: password,
-      })
-    );
     return fetch(`${this._baseUrl}signin`, {
       method: "POST",
       headers: this._headers,
