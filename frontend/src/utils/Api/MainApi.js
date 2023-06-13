@@ -43,13 +43,13 @@ class MainApi {
         year: movie.year,
         description: movie.description,
         image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailer: movie.trailerLink,
+        trailerLink: movie.trailerLink,
         movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
         thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
       }),
-    });
+    }).then(this._resToJSON);
   }
 
   removeLikeMovie(movieId) {

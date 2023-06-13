@@ -97,6 +97,7 @@ export default function App() {
       });
   }
 
+  /** Получить все фильмы с сервера */
   useEffect(() => {
     if (loggedIn && location.pathname === "/movies") {
       setIsPreloader(true);
@@ -137,6 +138,45 @@ export default function App() {
         );
     }
   }, [loggedIn, location]);
+
+  /** Получить все лайкнутые фильмы */
+  useEffect(() => {
+    if (
+      loggedIn &&
+      (location.pathname === "/saved-movies" || location.pathname === "/movies")
+    ) {
+      mainApi
+        .getInitialLikeMovie()
+        .then((res) => {
+          if (res.length) {
+            const ownerSavedMovies = res.filter(
+              (item) => item.owner === currentUser._id
+            );
+
+            localStorage.setItem(
+              "savedMovies",
+              JSON.stringify(ownerSavedMovies)
+            );
+
+            setSavedMovies(JSON.parse(localStorage.getItem("savedMovies")));
+
+            setFindSavedMovies(true);
+          } else {
+            setFindSavedMovies(false);
+          }
+        })
+        .catch((err) => {
+          setFindSavedMovies(false);
+
+          console.log(`Ошибка при загрузке списка сохранённых фильмов: ${err}`);
+        })
+        .finally(() =>
+          setTimeout(() => {
+            setIsPreloader(false);
+          }, 2000)
+        );
+    }
+  }, [loggedIn, location, currentUser, savedMovies]);
 
   /** Сохранить фильм в список пользователя на сервере */
   function onSaveMovie(movie) {
@@ -326,6 +366,14 @@ export default function App() {
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
+                movies={movies}
+                savedMovies={savedMovies}
+                isPreloader={isPreloader}
+                findSavedMovies={findSavedMovies}
+                isShortMovies={isShortMovies}
+                onSearchSubmit={onSearchSubmit}
+                onSearchShortMovies={onSearchShortMovies}
+                onDeleteSavedMovie={onDeleteSavedMovie}
               ></ProtectedRoute>
             }
           />

@@ -36,10 +36,11 @@ export default function MoviesCardList({
   return (
     <div className="moviescardlist">
       <div className="moviescardlist__table">
-        {movies.slice(0, countMovies).map((movies) => {
+        {movies.slice(0, countMovies).map((movie) => {
           return (
             <MoviesCard
-              movies={movies}
+              key={movie.id || movie.movieId}
+              movies={movie}
               pathSavedMovie={pathSavedMovie}
               isSavedMovie={isSavedMovie}
               onSaveMovie={onSaveMovie}

@@ -60,7 +60,7 @@ export default function MoviesCard({
               onClick={
                 isSavedMovie(movies)
                   ? () => handleSavedMovie(movies)
-                  : () => handleSavedMovie(movies)
+                  : () => onSaveMovie(movies)
               }
             />
           )}
