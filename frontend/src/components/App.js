@@ -100,7 +100,7 @@ export default function App() {
 
   useEffect(() => {
     if (loggedIn && location.pathname === "/movies") {
-      // setIsPreloader(true);
+      setIsPreloader(true);
 
       moviesApi
         .getInitialMovie()
@@ -131,12 +131,12 @@ export default function App() {
           setFindMovies(false);
 
           console.log(`Ошибка при загрузке списка фильмов: ${err}`);
-        });
-      //   .finally(() =>
-      //   setTimeout(() => {
-      //     setIsPreloader(false);
-      //   }, 2000)
-      // );
+        })
+        .finally(() =>
+          setTimeout(() => {
+            setIsPreloader(false);
+          }, 2000)
+        );
     }
   }, [loggedIn, location]);
 

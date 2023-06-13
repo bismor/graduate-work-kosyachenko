@@ -1,5 +1,6 @@
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader";
 import "./Movies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
@@ -43,11 +44,26 @@ export default function Movies({
         onSearchSubmit={onSearchSubmit}
         onSearchShortMovies={onSearchShortMovies}
       />
-      <>
-        <section className="movies">
-          <MoviesCardList />
-        </section>
-      </>
+      {isPreloader ? (
+        <div className="container">
+          <Preloader />
+        </div>
+      ) : findMovies ? (
+        <>
+          <section className="movies">
+            <MoviesCardList
+              movies={movies}
+              countMovies={countMovies}
+              setCountMovies={setCountMovies}
+              onSaveMovie={onSaveMovie}
+              handleSavedMovie={handleSavedMovie}
+              isSavedMovie={isSavedMovie}
+            />
+          </section>
+        </>
+      ) : (
+        <h2 className="movies__title">Нет фильмов</h2>
+      )}
       <Footer />
     </>
   );

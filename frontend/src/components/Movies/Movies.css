@@ -1,0 +1,14 @@
+/* .container {
+  border-top: 1px solid rgba(170, 170, 170, .2);
+  padding: 150px 0 100px;
+}
+
+@media (min-width: 768px) {
+  .movies__still {
+    width: 320px;
+  }
+
+  .container {
+    padding: 200px 0 150px;
+  }
+} */
