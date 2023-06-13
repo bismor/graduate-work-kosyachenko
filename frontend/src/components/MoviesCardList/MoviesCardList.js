@@ -2,23 +2,21 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import React, { useEffect, useState } from "react";
 
-export default function MoviesCardList(
+export default function MoviesCardList({
   movies,
   countMovies,
   setCountMovies,
   onSaveMovie,
   handleSavedMovie,
   isSavedMovie,
-  pathSavedMovie = false
-) {
+  pathSavedMovie = false,
+}) {
   const [addMoreCards, setAddMoreCards] = useState(0);
-
   const addMoreMovies = () => {
     setCountMovies(countMovies + addMoreCards);
   };
   const displayWidthCheck = () => {
     const display = window.innerWidth;
-
     if (display > 900) {
       setCountMovies(12);
       setAddMoreCards(3);
@@ -38,10 +36,10 @@ export default function MoviesCardList(
   return (
     <div className="moviescardlist">
       <div className="moviescardlist__table">
-        {movies.slice(0, countMovies).map((movie) => {
+        {movies.slice(0, countMovies).map((movies) => {
           return (
             <MoviesCard
-              movie={movie}
+              movies={movies}
               pathSavedMovie={pathSavedMovie}
               isSavedMovie={isSavedMovie}
               onSaveMovie={onSaveMovie}

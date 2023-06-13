@@ -86,7 +86,6 @@ export default function App() {
     mainApi
       .signIn(email, password)
       .then((data) => {
-        console.log("signin", data);
         localStorage.setItem("token", data.token);
         setloggedIn(true);
         navigate("/", { replace: true });
@@ -119,7 +118,6 @@ export default function App() {
                 )
               )
             );
-
             setMovies(JSON.parse(localStorage.getItem("movies")));
 
             setFindMovies(true);
