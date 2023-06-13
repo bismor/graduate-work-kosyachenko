@@ -31,26 +31,33 @@ class MainApi {
       });
   }
 
-  addLikeMovie(id) {
-    return fetch(`${this._baseUrl}movies/` + id + "/likes", {
-      method: "PUT",
+  addLikeMovie(movie) {
+    return fetch(`${this._baseUrl}movies`, {
+      method: "POST",
       headers: this._headers,
-    })
-      .then(this._resToJSON)
-      .then((respawns) => {
-        return respawns.data;
-      });
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailer: movie.trailerLink,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      }),
+    });
   }
 
-  removeLikeMovie(id) {
-    return fetch(`${this._baseUrl}movies/` + id + "/likes", {
+  removeLikeMovie(movieId) {
+    return fetch(`${this._baseUrl}movies/${movieId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._resToJSON)
-      .then((respawns) => {
-        return respawns.data;
-      });
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
   }
 
   setUserInfo(name, email) {
