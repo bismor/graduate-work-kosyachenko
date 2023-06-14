@@ -1,10 +1,9 @@
 import "./MoviesCard.css";
 
 export default function MoviesCard({
-  movies,
+  movie,
   pathSavedMovie,
   isSavedMovie,
-  onSaveMovie,
   handleSavedMovie,
 }) {
   const timeFormat = (duration) => {
@@ -17,56 +16,55 @@ export default function MoviesCard({
     <>
       <article className="movies__cell">
         <a
-          href={movies.trailerLink}
+          href={movie.trailerLink}
           target="_blank"
           rel="noreferrer"
-          title={movies.trailerLink}
+          title={movie.trailerLink}
           className="movies__link"
         >
           <img
             src={
-              movies.image.url
-                ? `https://api.nomoreparties.co${movies.image.url}`
-                : movies.image
+              movie.image.url
+                ? `https://api.nomoreparties.co${movie.image.url}`
+                : movie.image
             }
-            alt={movies.nameRU}
+            alt={movie.nameRU}
             className="movies__image"
           />
         </a>
         <div className="movies__block">
           <a
-            href={movies.trailerLink}
-            title={movies.trailerLink}
+            href={movie.trailerLink}
+            title={movie.trailerLink}
             target="_blank"
             rel="noreferrer"
             className="movies__link"
           >
-            <h2 className="movies__heading">{movies.nameRU}</h2>
+            <h2 className="movies__heading">{movie.nameRU}</h2>
           </a>
           {pathSavedMovie ? (
             <button
               className={`movies__button movies__button_delete`}
               onClick={() => {
-                handleSavedMovie(movies);
-                onSaveMovie(movies);
+                handleSavedMovie(movie);
               }}
             />
           ) : (
             <button
               className={`movies__button${
-                isSavedMovie(movies)
+                isSavedMovie(movie)
                   ? " movies__button_saved"
                   : " movies__button_not-saved"
               }`}
               onClick={
-                isSavedMovie(movies)
-                  ? () => handleSavedMovie(movies)
-                  : () => onSaveMovie(movies)
+                isSavedMovie(movie)
+                  ? () => handleSavedMovie.handleSavedMovie(movie)
+                  : () => handleSavedMovie.onSaveMovie(movie)
               }
             />
           )}
         </div>
-        <p className="movies__duration">{`${timeFormat(movies.duration)}`}</p>
+        <p className="movies__duration">{`${timeFormat(movie.duration)}`}</p>
       </article>
     </>
   );

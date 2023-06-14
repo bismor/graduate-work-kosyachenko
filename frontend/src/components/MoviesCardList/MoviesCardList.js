@@ -4,27 +4,25 @@ import React, { useEffect, useState } from "react";
 
 export default function MoviesCardList({
   movies,
-  countMovies,
-  setCountMovies,
-  onSaveMovie,
   handleSavedMovie,
-  isSavedMovie,
   pathSavedMovie = false,
+  count,
+  isSavedMovie,
 }) {
   const [addMoreCards, setAddMoreCards] = useState(0);
   const addMoreMovies = () => {
-    setCountMovies(countMovies + addMoreCards);
+    count.setCountMovies(count.countMovies + addMoreCards);
   };
   const displayWidthCheck = () => {
     const display = window.innerWidth;
     if (display > 900) {
-      setCountMovies(12);
+      count.setCountMovies(12);
       setAddMoreCards(3);
     } else if (display > 750) {
-      setCountMovies(8);
+      count.setCountMovies(8);
       setAddMoreCards(2);
     } else if (display < 750) {
-      setCountMovies(5);
+      count.setCountMovies(5);
       setAddMoreCards(2);
     }
   };
@@ -36,20 +34,19 @@ export default function MoviesCardList({
   return (
     <div className="moviescardlist">
       <div className="moviescardlist__table">
-        {movies.slice(0, countMovies).map((movie) => {
+        {movies.slice(0, count.countMovies).map((movie) => {
           return (
             <MoviesCard
               key={movie.id || movie.movieId}
-              movies={movie}
+              movie={movie}
               pathSavedMovie={pathSavedMovie}
               isSavedMovie={isSavedMovie}
-              onSaveMovie={onSaveMovie}
               handleSavedMovie={handleSavedMovie}
             />
           );
         })}
       </div>
-      {movies.length > countMovies || movies.length < !3 ? (
+      {movies.length > count.countMovies || movies.length < !3 ? (
         <div className="moviescardlist__button-overlay">
           <button className="moviescardlist__still" onClick={addMoreMovies}>
             Ещё

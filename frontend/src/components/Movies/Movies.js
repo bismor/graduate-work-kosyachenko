@@ -53,10 +53,8 @@ export default function Movies({
           <section className="movies">
             <MoviesCardList
               movies={movies}
-              countMovies={countMovies}
-              setCountMovies={setCountMovies}
-              onSaveMovie={onSaveMovie}
-              handleSavedMovie={handleSavedMovie}
+              count={{ countMovies, setCountMovies }}
+              handleSavedMovie={{ onSaveMovie, handleSavedMovie }}
               isSavedMovie={isSavedMovie}
             />
           </section>

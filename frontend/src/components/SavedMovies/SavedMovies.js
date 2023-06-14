@@ -48,8 +48,7 @@ export default function SavedMovies({
         <section className="movies">
           <MoviesCardList
             movies={savedMovies}
-            countMovies={countMovies}
-            setCountMovies={setCountMovies}
+            count={{ countMovies, setCountMovies }}
             pathSavedMovie={true}
             handleSavedMovie={handleSavedMovie}
           />
