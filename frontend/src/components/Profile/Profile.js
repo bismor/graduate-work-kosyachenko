@@ -40,7 +40,7 @@ export default function Profile({
     profileEmailField.setIsDirty(false);
     profileEmailField.setIsValid(true);
     profileNameField.setIsValid(true);
-  }, [currentUser, profileEmailField, profileNameField]);
+  }, [currentUser]);
 
   function handleLogout() {
     onLogout();
