@@ -1,4 +1,4 @@
-![Превью проекта Movies Explorer](https://github.com/bismor/graduate-work-kosyachenko/pull/3)
+![Pull](https://github.com/bismor/graduate-work-kosyachenko/pull/3)
 
 IP-адрес 51.250.83.178
 
