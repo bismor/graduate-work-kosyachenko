@@ -176,20 +176,21 @@ export default function App() {
           }, 2000)
         );
     }
-  }, [loggedIn, location, currentUser, savedMovies]);
+  }, [loggedIn, location, currentUser]);
 
   /** Сохранить фильм в список пользователя на сервере */
   function onSaveMovie(movie) {
     mainApi
       .addLikeMovie(movie)
       .then((newSavedMovie) => {
-        localStorage.setItem("savedMovies", JSON.stringify(newSavedMovie));
+        localStorage.setItem("savedMovies", JSON.stringify(newSavedMovie.data));
 
         setSavedMovies([
           JSON.parse(localStorage.getItem("savedMovies")),
           ...savedMovies,
         ]);
       })
+
       .catch((err) => {
         console.log(`Ошибка при сохранения фильма: ${err}`);
       });
@@ -198,7 +199,7 @@ export default function App() {
   /** Удалить из списка сохранённый фильм пользователя на сервере */
   function onDeleteSavedMovie(movie) {
     mainApi
-      .removeLikeMovie(movie.movieId)
+      .removeLikeMovie(movie._id)
       .then(() => {
         const res = savedMovies.filter(
           (item) => item.movieId !== movie.movieId

@@ -22,7 +22,7 @@ export default function SavedMovies({
 }) {
   const [countMovies, setCountMovies] = useState(0);
   /** Удаление сохранённого фильма */
-  function onModDeleteSavedMovie(movie) {
+  function handleSavedMovie(movie) {
     if (movies.some((item) => item.id === +movie.movieId))
       onDeleteSavedMovie(movie);
   }
@@ -46,7 +46,13 @@ export default function SavedMovies({
         </div>
       ) : findSavedMovies ? (
         <section className="movies">
-          <MoviesCardList />
+          <MoviesCardList
+            movies={savedMovies}
+            countMovies={countMovies}
+            setCountMovies={setCountMovies}
+            pathSavedMovie={true}
+            handleSavedMovie={handleSavedMovie}
+          />
         </section>
       ) : (
         <h2 className="movies__title">Нет сохранённых фильмов</h2>

@@ -12,6 +12,7 @@ export default function MoviesCard({
     const min = duration % 60;
     return `${hours > 0 ? hours + "ч " : ""}${min}м`;
   };
+
   return (
     <>
       <article className="movies__cell">
