@@ -1,21 +1,21 @@
 import "./SearchForm.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-export default function SearchForm({
-  isShortMovies,
-  onSearchSubmit,
-  onSearchShortMovies,
-}) {
+export default function SearchForm({ onSearchSubmit }) {
   const [searchedMovies, setSearchedMovies] = useState("");
+  const [isOnlyShorts, setIsOnlyShorts] = useState(false);
+
+  const handleToggleShort = () => {
+    const newState = !isOnlyShorts;
+    setIsOnlyShorts(newState);
+    onSearchSubmit(searchedMovies, newState);
+  };
+
   function handleSearchMovie(event) {
     event.preventDefault();
 
-    onSearchSubmit(searchedMovies);
+    onSearchSubmit(searchedMovies, isOnlyShorts);
   }
-
-  useEffect(() => {
-    onSearchSubmit(searchedMovies);
-  }, [isShortMovies]);
 
   return (
     <form className="form-search">
@@ -38,12 +38,12 @@ export default function SearchForm({
         <button
           type="button"
           aria-label="Искать короткометражки"
-          className={`toggle ${isShortMovies ? "toggle_active" : ""} `}
-          onClick={onSearchShortMovies}
+          className={`toggle ${isOnlyShorts ? "toggle_active" : ""} `}
+          onClick={handleToggleShort}
         >
           <span
             className={`toggle__turn ${
-              isShortMovies ? "toggle__turn_active" : ""
+              isOnlyShorts ? "toggle__turn_active" : ""
             }`}
           ></span>
         </button>

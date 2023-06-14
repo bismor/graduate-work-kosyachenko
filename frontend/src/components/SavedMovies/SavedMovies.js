@@ -14,10 +14,7 @@ export default function SavedMovies({
   movies,
   savedMovies,
   isPreloader,
-  findSavedMovies,
-  isShortMovies,
   onSearchSubmit,
-  onSearchShortMovies,
   onDeleteSavedMovie,
 }) {
   const [countMovies, setCountMovies] = useState(0);
@@ -35,16 +32,12 @@ export default function SavedMovies({
         setIsHamburger={setIsHamburger}
         onHandleHamburger={onHandleHamburger}
       />
-      <SearchForm
-        isShortMovies={isShortMovies}
-        onSearchSubmit={onSearchSubmit}
-        onSearchShortMovies={onSearchShortMovies}
-      />
+      <SearchForm onSearchSubmit={onSearchSubmit} />
       {isPreloader ? (
         <div className="container">
           <Preloader />
         </div>
-      ) : findSavedMovies ? (
+      ) : savedMovies.length > 0 ? (
         <section className="movies">
           <MoviesCardList
             movies={savedMovies}

@@ -14,11 +14,8 @@ export default function Movies({
   setIsHamburger,
   isPreloader,
   isSavedMovie,
-  findMovies,
   onHandleHamburger,
-  isShortMovies,
   onSearchSubmit,
-  onSearchShortMovies,
   onSaveMovie,
   onDeleteSavedMovie,
 }) {
@@ -39,16 +36,12 @@ export default function Movies({
         setIsHamburger={setIsHamburger}
         onHandleHamburger={onHandleHamburger}
       />
-      <SearchForm
-        isShortMovies={isShortMovies}
-        onSearchSubmit={onSearchSubmit}
-        onSearchShortMovies={onSearchShortMovies}
-      />
+      <SearchForm onSearchSubmit={onSearchSubmit} />
       {isPreloader ? (
         <div className="container">
           <Preloader />
         </div>
-      ) : findMovies ? (
+      ) : movies.length > 0 ? (
         <>
           <section className="movies">
             <MoviesCardList

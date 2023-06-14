@@ -1,6 +1,6 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 export default function MoviesCardList({
   movies,
@@ -13,7 +13,8 @@ export default function MoviesCardList({
   const addMoreMovies = () => {
     count.setCountMovies(count.countMovies + addMoreCards);
   };
-  const displayWidthCheck = () => {
+
+  const displayWidthCheck = useCallback(() => {
     const display = window.innerWidth;
     if (display > 900) {
       count.setCountMovies(12);
@@ -25,11 +26,11 @@ export default function MoviesCardList({
       count.setCountMovies(5);
       setAddMoreCards(2);
     }
-  };
+  }, [count]);
 
   useEffect(() => {
     displayWidthCheck();
-  }, []);
+  }, [displayWidthCheck]);
 
   return (
     <div className="moviescardlist">

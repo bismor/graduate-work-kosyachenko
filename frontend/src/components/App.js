@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Main from "./Main/Main";
 import Register from "./Register/Register";
@@ -14,22 +14,22 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function App() {
+  const [moviesSource, setMoviesSource] = useState();
+  const [savedMoviesSource, setSavedMoviesSource] = useState();
+
   const [loggedIn, setloggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [findMovies, setFindMovies] = useState(true);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
-  const [isShortMovies, setIsShortMovies] = useState(false);
-  const [findSavedMovies, setFindSavedMovies] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
   const [successRequest, setSuccessRequest] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const tokenCheck = useCallback(() => {
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
@@ -37,32 +37,18 @@ export default function App() {
         mainApi
           .checkJwtToken(token)
           .then((res) => {
+            setCurrentUser(res.data);
             setloggedIn(true);
-            setCurrentUser(res.data.name, res.data.email, res.data._id);
           })
           .catch((err) => {
             setloggedIn(false);
-            localStorage.removeItem("jwt");
+            localStorage.removeItem("token");
             navigate("/", { replace: true });
             console.log(`Ошибка токена: ${err}`); // выведем ошибку в консоль
           });
       }
     }
   }, [navigate]);
-
-  useEffect(() => {
-    tokenCheck();
-    if (loggedIn) {
-      mainApi
-        .getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch((err) => {
-          console.log(err); // выведем ошибку в консоль
-        });
-    }
-  }, [loggedIn, tokenCheck]);
 
   /** Открыть/закрыть гамбургер */
   function onHandleHamburger() {
@@ -99,6 +85,7 @@ export default function App() {
 
   /** Получить все фильмы с сервера */
   useEffect(() => {
+    let timeoutId;
     if (loggedIn && location.pathname === "/movies") {
       setIsPreloader(true);
 
@@ -106,41 +93,36 @@ export default function App() {
         .getInitialMovie()
         .then((res) => {
           if (res.length) {
-            localStorage.setItem(
-              "movies",
-              JSON.stringify(
-                res.filter(
-                  (item) =>
-                    item.image &&
-                    item.country &&
-                    item.nameEN &&
-                    item.director &&
-                    item.trailerLink.startsWith("http")
-                )
-              )
+            const filterRes = res.filter(
+              (item) =>
+                item.image &&
+                item.country &&
+                item.nameEN &&
+                item.director &&
+                item.trailerLink.startsWith("http")
             );
-            setMovies(JSON.parse(localStorage.getItem("movies")));
 
-            setFindMovies(true);
-          } else {
-            setFindMovies(false);
+            setMoviesSource(filterRes);
+            setMovies(filterRes);
           }
         })
         .catch((err) => {
-          setFindMovies(false);
-
+          setMoviesSource([]);
           console.log(`Ошибка при загрузке списка фильмов: ${err}`);
         })
-        .finally(() =>
-          setTimeout(() => {
-            setIsPreloader(false);
-          }, 2000)
+        .finally(
+          () =>
+            (timeoutId = setTimeout(() => {
+              setIsPreloader(false);
+            }, 2000))
         );
     }
+    return () => clearTimeout(timeoutId);
   }, [loggedIn, location]);
 
   /** Получить все лайкнутые фильмы */
   useEffect(() => {
+    let timeoutId;
     if (
       loggedIn &&
       (location.pathname === "/saved-movies" || location.pathname === "/movies")
@@ -148,34 +130,26 @@ export default function App() {
       mainApi
         .getInitialLikeMovie()
         .then((res) => {
-          if (res.length) {
-            const ownerSavedMovies = res.filter(
-              (item) => item.owner === currentUser._id
-            );
+          const ownerSavedMovies = res.filter(
+            (item) => item.owner === currentUser._id
+          );
 
-            localStorage.setItem(
-              "savedMovies",
-              JSON.stringify(ownerSavedMovies)
-            );
-
-            setSavedMovies(JSON.parse(localStorage.getItem("savedMovies")));
-
-            setFindSavedMovies(true);
-          } else {
-            setFindSavedMovies(false);
-          }
+          setSavedMoviesSource(ownerSavedMovies);
+          setSavedMovies(ownerSavedMovies);
         })
         .catch((err) => {
-          setFindSavedMovies(false);
-
+          setSavedMoviesSource([]);
+          setSavedMovies([]);
           console.log(`Ошибка при загрузке списка сохранённых фильмов: ${err}`);
         })
-        .finally(() =>
-          setTimeout(() => {
-            setIsPreloader(false);
-          }, 2000)
+        .finally(
+          () =>
+            (timeoutId = setTimeout(() => {
+              setIsPreloader(false);
+            }, 2000))
         );
     }
+    return () => clearTimeout(timeoutId);
   }, [loggedIn, location, currentUser]);
 
   /** Сохранить фильм в список пользователя на сервере */
@@ -183,12 +157,7 @@ export default function App() {
     mainApi
       .addLikeMovie(movie)
       .then((newSavedMovie) => {
-        localStorage.setItem("savedMovies", JSON.stringify(newSavedMovie.data));
-
-        setSavedMovies([
-          JSON.parse(localStorage.getItem("savedMovies")),
-          ...savedMovies,
-        ]);
+        setSavedMovies([...newSavedMovie.data, ...savedMovies]);
       })
 
       .catch((err) => {
@@ -201,16 +170,11 @@ export default function App() {
     mainApi
       .removeLikeMovie(movie._id)
       .then(() => {
-        const res = savedMovies.filter(
+        const filtredMovies = savedMovies.filter(
           (item) => item.movieId !== movie.movieId
         );
 
-        localStorage.setItem("savedMovies", JSON.stringify(res));
-
-        setSavedMovies(JSON.parse(localStorage.getItem("savedMovies")));
-
-        if (!JSON.parse(localStorage.getItem("savedMovies")).length)
-          setFindSavedMovies(false);
+        setSavedMovies(filtredMovies);
       })
       .catch((err) => {
         console.log(
@@ -220,46 +184,31 @@ export default function App() {
   }
 
   /** Поиск фильмов */
-  function onSearchSubmit(movie) {
-    if (movie) {
-      let token;
-      let setAllMovies;
-      let setFind;
+  function onSearchSubmit(movieQuery, isShortMovieOnly) {
+    let setFiltredMovies;
+    let source = moviesSource;
 
-      if (location.pathname === "/movies") {
-        token = "movies";
-        setAllMovies = setMovies;
-        setFind = setFindMovies;
-      } else {
-        token = "savedMovies";
-        setAllMovies = setSavedMovies;
-        setFind = setFindSavedMovies;
-      }
-
-      const movies = JSON.parse(localStorage.getItem(token));
-      const findMovies = movies.filter(
-        (item) =>
-          item.nameRU.toLowerCase().includes(movie.toLowerCase()) &&
-          (isShortMovies ? item.duration < 40 : " ")
-      );
-
-      if (findMovies.length) {
-        setFind(true);
-        setAllMovies(findMovies);
-      } else {
-        setFind(false);
-      }
+    if (location.pathname === "/movies") {
+      setFiltredMovies = setMovies;
+    } else {
+      setFiltredMovies = setSavedMovies;
+      source = savedMoviesSource;
     }
-  }
 
-  /** Искать/не искать короткометражные фильмы */
-  function onSearchShortMovies() {
-    setIsShortMovies(!isShortMovies);
+    const findMovies = source.filter(
+      (item) =>
+        item.nameRU.toLowerCase().includes(movieQuery.toLowerCase()) &&
+        (isShortMovieOnly ? item.duration < 40 : true)
+    );
+
+    setFiltredMovies(findMovies);
   }
 
   /** Проверка на сохраненность фильмов */
   function isSavedMovie(movie) {
-    return savedMovies.some((item) => +item.movieId === movie.id);
+    return savedMovies.some((item) => {
+      return +item.movieId === movie.id;
+    });
   }
 
   function onLogout() {
@@ -321,7 +270,7 @@ export default function App() {
             path="/profile"
             element={
               <ProtectedRoute
-                loggedIn={loggedIn}
+                loggedIn={loggedIn || localStorage.getItem("token")}
                 onLogout={onLogout}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
@@ -339,18 +288,15 @@ export default function App() {
             path="/movies"
             element={
               <ProtectedRoute
-                loggedIn={loggedIn}
+                loggedIn={loggedIn || localStorage.getItem("token")}
                 movies={movies}
                 savedMovies={savedMovies}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 isPreloader={isPreloader}
                 isSavedMovie={isSavedMovie}
-                findMovies={findMovies}
                 onHandleHamburger={onHandleHamburger}
-                isShortMovies={isShortMovies}
                 onSearchSubmit={onSearchSubmit}
-                onSearchShortMovies={onSearchShortMovies}
                 onSaveMovie={onSaveMovie}
                 onDeleteSavedMovie={onDeleteSavedMovie}
                 element={Movies}
@@ -363,17 +309,14 @@ export default function App() {
             element={
               <ProtectedRoute
                 element={SavedMovies}
-                loggedIn={loggedIn}
+                loggedIn={loggedIn || localStorage.getItem("token")}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
                 movies={movies}
                 savedMovies={savedMovies}
                 isPreloader={isPreloader}
-                findSavedMovies={findSavedMovies}
-                isShortMovies={isShortMovies}
                 onSearchSubmit={onSearchSubmit}
-                onSearchShortMovies={onSearchShortMovies}
                 onDeleteSavedMovie={onDeleteSavedMovie}
               ></ProtectedRoute>
             }

@@ -25,22 +25,22 @@ export default function Profile({
     profileNameField.isValid
       ? profileNameField.setIsDirty(false)
       : profileNameField.setIsDirty(true);
-  }, [profileNameField.isValid]);
+  }, [profileNameField.isValid, profileNameField]);
 
   useEffect(() => {
     profileEmailField.isValid
       ? profileEmailField.setIsDirty(false)
       : profileEmailField.setIsDirty(true);
-  }, [profileEmailField.isValid]);
+  }, [profileEmailField.isValid, profileEmailField]);
 
   useEffect(() => {
-    profileNameField.setValue(currentUser.name);
-    profileEmailField.setValue(currentUser.email);
+    profileNameField.setValue(currentUser?.name ?? "");
+    profileEmailField.setValue(currentUser?.email ?? "");
     profileNameField.setIsDirty(false);
     profileEmailField.setIsDirty(false);
     profileEmailField.setIsValid(true);
     profileNameField.setIsValid(true);
-  }, []);
+  }, [currentUser, profileEmailField, profileNameField]);
 
   function handleLogout() {
     onLogout();
@@ -72,86 +72,90 @@ export default function Profile({
         setIsHamburger={setIsHamburger}
         onHandleHamburger={onHandleHamburger}
       />
-      <div className="profile">
-        <form className="prfile__form">
-          <h2 className="profile__heading">{`Привет, ${currentUser.name}!`}</h2>
-          <section>
-            <label className="profile__info profile__info_underline">
-              Имя
-              <input
-                value={profileNameField.value || ""}
-                type="text"
-                className={`profile__input form__input_type_profile${
-                  profileNameField.isDirty ? " form__input_invalid" : ""
-                }`}
-                placeholder="Введите имя"
-                id="name"
-                minLength="2"
-                maxLength="30"
-                onChange={(event) => {
-                  profileNameField.onChange(
-                    event,
-                    setErrorRequest,
-                    setDirtyBtn(false)
-                  );
-                }}
-              />
-            </label>
-            <label className="profile__info">
-              E-mail
-              <input
-                type="email"
-                className={`profile__input form__input_type_profile${
-                  profileEmailField.isDirty ? " form__input_invalid" : ""
-                }`}
-                placeholder="Введите E-mail"
-                id="email"
-                minLength="6"
-                maxLength="30"
-                value={profileEmailField.value || ""}
-                onChange={(event) => {
-                  profileEmailField.onChange(
-                    event,
-                    setErrorRequest,
-                    setDirtyBtn(false)
-                  );
-                }}
-              />
-            </label>
-            <div className="profile__button">
-              <span
-                className={`profile__request${
-                  errorRequest
-                    ? " profile__request_error"
-                    : successRequest
-                    ? " profile__request_success "
-                    : ""
-                }`}
-              >
-                {errorRequest
-                  ? "Некорректные данные"
-                  : setTimeout(() => successRequest)
-                  ? "Данные успешно обновлены"
-                  : ""}
-              </span>
-              <button
-                className="profile__edit"
-                disabled={validateBtn()}
-                onClick={handleSubmit}
-              >
-                Редактировать
-              </button>
-              <button
-                className="profile__signout"
-                type="button"
-                onClick={handleLogout}
-              >
-                Выйти из аккаунта
-              </button>
-            </div>
-          </section>
-        </form>
-      </div>
+      {currentUser && (
+        <div className="profile">
+          <form className="prfile__form">
+            <h2 className="profile__heading">{`Привет, ${
+              currentUser.name || ""
+            }!`}</h2>
+            <section>
+              <label className="profile__info profile__info_underline">
+                Имя
+                <input
+                  value={profileNameField.value || ""}
+                  type="text"
+                  className={`profile__input form__input_type_profile${
+                    profileNameField.isDirty ? " form__input_invalid" : ""
+                  }`}
+                  placeholder="Введите имя"
+                  id="name"
+                  minLength="2"
+                  maxLength="30"
+                  onChange={(event) => {
+                    profileNameField.onChange(
+                      event,
+                      setErrorRequest,
+                      setDirtyBtn(false)
+                    );
+                  }}
+                />
+              </label>
+              <label className="profile__info">
+                E-mail
+                <input
+                  type="email"
+                  className={`profile__input form__input_type_profile${
+                    profileEmailField.isDirty ? " form__input_invalid" : ""
+                  }`}
+                  placeholder="Введите E-mail"
+                  id="email"
+                  minLength="6"
+                  maxLength="30"
+                  value={profileEmailField.value || ""}
+                  onChange={(event) => {
+                    profileEmailField.onChange(
+                      event,
+                      setErrorRequest,
+                      setDirtyBtn(false)
+                    );
+                  }}
+                />
+              </label>
+              <div className="profile__button">
+                <span
+                  className={`profile__request${
+                    errorRequest
+                      ? " profile__request_error"
+                      : successRequest
+                      ? " profile__request_success "
+                      : ""
+                  }`}
+                >
+                  {errorRequest
+                    ? "Некорректные данные"
+                    : setTimeout(() => successRequest)
+                    ? "Данные успешно обновлены"
+                    : ""}
+                </span>
+                <button
+                  className="profile__edit"
+                  disabled={validateBtn()}
+                  onClick={handleSubmit}
+                >
+                  Редактировать
+                </button>
+                <button
+                  className="profile__signout"
+                  type="button"
+                  onClick={handleLogout}
+                >
+                  Выйти из аккаунта
+                </button>
+              </div>
+            </section>
+          </form>
+        </div>
+      )}
     </>
   );
 }
