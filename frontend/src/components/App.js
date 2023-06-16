@@ -74,7 +74,7 @@ export default function App() {
       .then((data) => {
         localStorage.setItem("token", data.token);
         setloggedIn(true);
-        navigate("/", { replace: true });
+        navigate("/movies", { replace: true });
       })
       .catch((err) => {
         setErrorRequest(true);
