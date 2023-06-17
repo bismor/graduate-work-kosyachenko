@@ -2,6 +2,7 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import React, { useEffect, useState } from "react";
 import useFormWithValidation from "../../utils/useFormWithValidation";
+import useFormWithValidationEmail from "../../utils/useFormWithValidationEmail";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Profile({
@@ -18,7 +19,7 @@ export default function Profile({
   let currentUser = React.useContext(CurrentUserContext);
 
   const profileNameField = useFormWithValidation();
-  const profileEmailField = useFormWithValidation();
+  const profileEmailField = useFormWithValidationEmail();
   const [dirtyBtn, setDirtyBtn] = useState(true);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function Profile({
   }, [profileNameField.isValid, profileNameField]);
 
   useEffect(() => {
-    profileEmailField.isValid
+    profileEmailField.isEmailValid
       ? profileEmailField.setIsDirty(false)
       : profileEmailField.setIsDirty(true);
   }, [profileEmailField.isValid, profileEmailField]);
@@ -38,7 +39,7 @@ export default function Profile({
     profileEmailField.setValue(currentUser?.email ?? "");
     profileNameField.setIsDirty(false);
     profileEmailField.setIsDirty(false);
-    profileEmailField.setIsValid(true);
+    profileEmailField.setIsEmailValid(true);
     profileNameField.setIsValid(true);
   }, [currentUser]);
 
@@ -54,7 +55,7 @@ export default function Profile({
 
   function validateBtn() {
     return (
-      !(profileNameField.isValid && profileEmailField.isValid) ||
+      !(profileNameField.isValid && profileEmailField.isEmailValid) ||
       errorRequest ||
       dirtyBtn ||
       (profileNameField.value === currentUser.name &&
