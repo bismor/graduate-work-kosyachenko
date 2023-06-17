@@ -20,6 +20,7 @@ export default function App() {
   const [loggedIn, setloggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [movieInput, setMovieInput] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
@@ -87,44 +88,59 @@ export default function App() {
   /** Получить все фильмы с сервера */
   useEffect(() => {
     let timeoutId;
+    const movieSearchLocal = localStorage.getItem("MovieSearch");
+    const movieLocal = localStorage.getItem("Movie");
+
     if (loggedIn && location.pathname === "/movies") {
       setIsPreloader(true);
+      if (movieSearchLocal === null) {
+        moviesApi
+          .getInitialMovie()
+          .then((res) => {
+            if (res.length) {
+              const filterRes = res.filter(
+                (item) =>
+                  item.image &&
+                  item.country &&
+                  item.nameEN &&
+                  item.director &&
+                  item.trailerLink.startsWith("http")
+              );
 
-      moviesApi
-        .getInitialMovie()
-        .then((res) => {
-          if (res.length) {
-            const filterRes = res.filter(
-              (item) =>
-                item.image &&
-                item.country &&
-                item.nameEN &&
-                item.director &&
-                item.trailerLink.startsWith("http")
-            );
-
-            const isOnlyShortsStorage =
-              localStorage.getItem("MoviesOnlyShorts");
-            if (isOnlyShortsStorage) {
-              setIsOnlyShorts(isOnlyShortsStorage);
-            } else {
-              setIsOnlyShorts(false);
+              setMoviesSource(filterRes);
+              setMovies(filterRes);
             }
-
-            setMoviesSource(filterRes);
-            setMovies(filterRes);
-          }
-        })
-        .catch((err) => {
-          setMoviesSource([]);
-          console.log(`Ошибка при загрузке списка фильмов: ${err}`);
-        })
-        .finally(
-          () =>
-            (timeoutId = setTimeout(() => {
-              setIsPreloader(false);
-            }, 2000))
+          })
+          .catch((err) => {
+            setMoviesSource([]);
+            console.log(`Ошибка при загрузке списка фильмов: ${err}`);
+          })
+          .finally(
+            () =>
+              (timeoutId = setTimeout(() => {
+                setIsPreloader(false);
+              }, 2000))
+          );
+      } else {
+        const filterRes = JSON.parse(movieLocal).filter(
+          (item) =>
+            item.image &&
+            item.country &&
+            item.nameEN &&
+            item.director &&
+            item.trailerLink.startsWith("http")
         );
+        setMovieInput(movieSearchLocal);
+        setMoviesSource(filterRes);
+        setMovies(filterRes);
+      }
+
+      const isOnlyShortsStorage = localStorage.getItem("MoviesOnlyShorts");
+      if (isOnlyShortsStorage) {
+        setIsOnlyShorts(isOnlyShortsStorage);
+      } else {
+        setIsOnlyShorts(false);
+      }
     }
     return () => clearTimeout(timeoutId);
   }, [loggedIn, location]);
@@ -249,9 +265,8 @@ export default function App() {
   }
 
   function onLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("MoviesOnlyShorts");
-    localStorage.removeItem("SaveMoviesOnlyShorts");
+    localStorage.clear();
+
     setloggedIn(false);
     navigate("/", { replace: true });
   }
@@ -340,6 +355,7 @@ export default function App() {
                 onDeleteSavedMovie={onDeleteSavedMovie}
                 isOnlyShorts={isOnlyShorts}
                 setIsOnlyShorts={setIsOnlyShorts}
+                movieInput={movieInput}
                 element={Movies}
               ></ProtectedRoute>
             }

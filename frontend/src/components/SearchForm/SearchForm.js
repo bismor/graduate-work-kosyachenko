@@ -6,6 +6,7 @@ export default function SearchForm({
   onSearchSubmit,
   isOnlyShorts,
   setIsOnlyShorts,
+  movieInput,
 }) {
   const [searchedMovies, setSearchedMovies] = useState("");
 
@@ -36,6 +37,7 @@ export default function SearchForm({
           type="search"
           placeholder="Поиск"
           className="form-search__input"
+          value={movieInput}
           onInput={(event) => setSearchedMovies(event.target.value)}
         />
         <button
