@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import Logo from "../ui/Logo/Logo";
 import { Link } from "react-router-dom";
 import useFormWithValidation from "../../utils/useFormWithValidation";
+import useFormWithValidationEmail from "../../utils/useFormWithValidationEmail";
 import "./Register.css";
 
 export default function Register({
@@ -10,7 +11,7 @@ export default function Register({
   onRegister,
 }) {
   const registerNameField = useFormWithValidation();
-  const registerEmailField = useFormWithValidation();
+  const registerEmailField = useFormWithValidationEmail();
   const registerPasswordField = useFormWithValidation();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Register({
   }, [registerNameField.value]);
 
   useEffect(() => {
-    registerEmailField.isValid
+    registerEmailField.isEmailValid
       ? registerEmailField.setIsDirty(false)
       : registerEmailField.setIsDirty(true);
   }, [registerEmailField.value]);
@@ -102,7 +103,9 @@ export default function Register({
                 registerEmailField.isDirty ? " register__error_active" : ""
               }`}
             >
-              {registerEmailField.isDirty ? registerEmailField.isError : ""}
+              {registerEmailField.isDirty
+                ? registerEmailField.IsErrorEmail
+                : ""}
             </span>
           </label>
           <label className="register__label">
