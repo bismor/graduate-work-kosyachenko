@@ -25,6 +25,7 @@ export default function App() {
   const [isPreloader, setIsPreloader] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
   const [successRequest, setSuccessRequest] = useState(false);
+  const [isOnlyShorts, setIsOnlyShorts] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -102,6 +103,14 @@ export default function App() {
                 item.trailerLink.startsWith("http")
             );
 
+            const isOnlyShortsStorage =
+              localStorage.getItem("MoviesOnlyShorts");
+            if (isOnlyShortsStorage) {
+              setIsOnlyShorts(isOnlyShortsStorage);
+            } else {
+              setIsOnlyShorts(false);
+            }
+
             setMoviesSource(filterRes);
             setMovies(filterRes);
           }
@@ -133,6 +142,15 @@ export default function App() {
           const ownerSavedMovies = res.filter(
             (item) => item.owner === currentUser._id
           );
+
+          const isOnlyShortsStorage = localStorage.getItem(
+            "SaveMoviesOnlyShorts"
+          );
+          if (isOnlyShortsStorage) {
+            setIsOnlyShorts(isOnlyShortsStorage);
+          } else {
+            setIsOnlyShorts(false);
+          }
 
           setSavedMoviesSource(ownerSavedMovies);
           setSavedMovies(ownerSavedMovies);
@@ -202,6 +220,25 @@ export default function App() {
     );
 
     setFiltredMovies(findMovies);
+
+    let localSaveMovie = JSON.stringify(
+      findMovies.filter(
+        (item) =>
+          item.image &&
+          item.country &&
+          item.nameEN &&
+          item.director &&
+          item.trailerLink.startsWith("http")
+      )
+    );
+
+    if (location.pathname === "/movies") {
+      localStorage.setItem("Movie", localSaveMovie);
+      localStorage.setItem("MovieSearch", movieQuery);
+    } else {
+      localStorage.setItem("SaveMovie", localSaveMovie);
+      localStorage.setItem("SaveMovieSearch", movieQuery);
+    }
   }
 
   /** Проверка на сохраненность фильмов */
@@ -213,6 +250,8 @@ export default function App() {
 
   function onLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("MoviesOnlyShorts");
+    localStorage.removeItem("SaveMoviesOnlyShorts");
     setloggedIn(false);
     navigate("/", { replace: true });
   }
@@ -299,6 +338,8 @@ export default function App() {
                 onSearchSubmit={onSearchSubmit}
                 onSaveMovie={onSaveMovie}
                 onDeleteSavedMovie={onDeleteSavedMovie}
+                isOnlyShorts={isOnlyShorts}
+                setIsOnlyShorts={setIsOnlyShorts}
                 element={Movies}
               ></ProtectedRoute>
             }
@@ -318,6 +359,8 @@ export default function App() {
                 isPreloader={isPreloader}
                 onSearchSubmit={onSearchSubmit}
                 onDeleteSavedMovie={onDeleteSavedMovie}
+                isOnlyShorts={isOnlyShorts}
+                setIsOnlyShorts={setIsOnlyShorts}
               ></ProtectedRoute>
             }
           />

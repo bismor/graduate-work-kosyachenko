@@ -18,6 +18,8 @@ export default function Movies({
   onSearchSubmit,
   onSaveMovie,
   onDeleteSavedMovie,
+  isOnlyShorts,
+  setIsOnlyShorts,
 }) {
   const [countMovies, setCountMovies] = useState(0);
 
@@ -36,7 +38,11 @@ export default function Movies({
         setIsHamburger={setIsHamburger}
         onHandleHamburger={onHandleHamburger}
       />
-      <SearchForm onSearchSubmit={onSearchSubmit} />
+      <SearchForm
+        onSearchSubmit={onSearchSubmit}
+        isOnlyShorts={isOnlyShorts}
+        setIsOnlyShorts={setIsOnlyShorts}
+      />
       {isPreloader ? (
         <div className="container">
           <Preloader />
