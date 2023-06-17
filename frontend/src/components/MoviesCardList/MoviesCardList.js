@@ -16,7 +16,7 @@ export default function MoviesCardList({
 
   const displayWidthCheck = useCallback(() => {
     const display = window.innerWidth;
-    if (display > 900) {
+    if (display > 1079) {
       count.setCountMovies(12);
       setAddMoreCards(3);
     } else if (display > 750) {
@@ -30,7 +30,7 @@ export default function MoviesCardList({
 
   useEffect(() => {
     displayWidthCheck();
-  }, [displayWidthCheck]);
+  }, []);
 
   return (
     <div className="moviescardlist">
