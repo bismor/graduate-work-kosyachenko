@@ -1,33 +1,27 @@
 import "./SearchForm.css";
 import React, { useCallback, useState } from "react";
-import { useLocation } from "react-router";
 
 export default function SearchForm({
   onSearchSubmit,
   isOnlyShorts,
   setIsOnlyShorts,
-  movieInput,
+  searchedMoviesInput,
+  setSearchedMoviesInput,
 }) {
-  const [searchedMovies, setSearchedMovies] = useState("");
+  const [localSearchedMoviesInput, setLocalSearchedMoviesInput] =
+    useState(searchedMoviesInput);
 
-  const location = useLocation();
   const handleToggleShort = useCallback(() => {
     const newState = !isOnlyShorts;
 
     setIsOnlyShorts(newState);
-    onSearchSubmit(searchedMovies, newState);
-
-    if (location.pathname === "/movies") {
-      localStorage.setItem("MoviesOnlyShorts", newState);
-    } else {
-      localStorage.setItem("SaveMoviesOnlyShorts", newState);
-    }
-  }, [isOnlyShorts]);
+    onSearchSubmit(searchedMoviesInput, newState);
+  }, [isOnlyShorts, setIsOnlyShorts, onSearchSubmit, searchedMoviesInput]);
 
   function handleSearchMovie(event) {
     event.preventDefault();
 
-    onSearchSubmit(searchedMovies, isOnlyShorts);
+    onSearchSubmit(localSearchedMoviesInput, isOnlyShorts);
   }
 
   return (
@@ -37,8 +31,8 @@ export default function SearchForm({
           type="search"
           placeholder="Поиск"
           className="form-search__input"
-          value={movieInput}
-          onInput={(event) => setSearchedMovies(event.target.value)}
+          value={localSearchedMoviesInput || ""}
+          onInput={(event) => setLocalSearchedMoviesInput(event.target.value)}
         />
         <button
           type="button"

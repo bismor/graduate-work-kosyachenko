@@ -18,6 +18,8 @@ export default function SavedMovies({
   onDeleteSavedMovie,
   isOnlyShorts,
   setIsOnlyShorts,
+  searchedMoviesInput,
+  setSearchedMoviesInput,
 }) {
   const [countMovies, setCountMovies] = useState(0);
   /** Удаление сохранённого фильма */
@@ -38,6 +40,8 @@ export default function SavedMovies({
         onSearchSubmit={onSearchSubmit}
         isOnlyShorts={isOnlyShorts}
         setIsOnlyShorts={setIsOnlyShorts}
+        searchedMoviesInput={searchedMoviesInput}
+        setSearchedMoviesInput={setSearchedMoviesInput}
       />
       {isPreloader ? (
         <div className="container">

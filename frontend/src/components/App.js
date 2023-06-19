@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Main from "./Main/Main";
 import Register from "./Register/Register";
@@ -11,25 +11,49 @@ import SavedMovies from "./SavedMovies/SavedMovies";
 import mainApi from "../utils/Api/MainApi";
 import moviesApi from "../utils/Api/MoviesApi";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import ProtectedRouteAuth from "./ProtectedRouteAuth/ProtectedRouteAuth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function App() {
-  const [moviesSource, setMoviesSource] = useState();
-  const [savedMoviesSource, setSavedMoviesSource] = useState();
+  const [moviesSource, setMoviesSource] = useState([]);
+  const [savedMoviesSource, setSavedMoviesSource] = useState([]);
 
   const [loggedIn, setloggedIn] = useState(false);
-  const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [movieInput, setMovieInput] = useState("");
+  const [searchedMoviesInput, setSearchedMoviesInput] = useState(
+    localStorage.getItem("searchQuery") || ""
+  );
+  const [isOnlyShorts, setIsOnlyShorts] = useState(
+    localStorage.getItem("isShortOnlyQuery") === "1" ? true : false
+  );
   const [currentUser, setCurrentUser] = useState(null);
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
   const [errorRequest, setErrorRequest] = useState(false);
   const [successRequest, setSuccessRequest] = useState(false);
-  const [isOnlyShorts, setIsOnlyShorts] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const filteredMovies = useMemo(() => {
+    const processMovies = (movie, array) => {
+      if (
+        movie.nameRU
+          .toLowerCase()
+          .includes(searchedMoviesInput.toLowerCase()) &&
+        (isOnlyShorts ? movie.duration < 40 : true)
+      ) {
+        array.push(movie);
+      }
+    };
+
+    const saved = [];
+    // debugger;
+    savedMoviesSource.forEach((item) => processMovies(item, saved));
+    const all = [];
+    moviesSource.forEach((item) => processMovies(item, all));
+
+    return { saved, all };
+  }, [moviesSource, savedMoviesSource, searchedMoviesInput, isOnlyShorts]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -88,59 +112,36 @@ export default function App() {
   /** Получить все фильмы с сервера */
   useEffect(() => {
     let timeoutId;
-    const movieSearchLocal = localStorage.getItem("MovieSearch");
-    const movieLocal = localStorage.getItem("Movie");
 
     if (loggedIn && location.pathname === "/movies") {
       setIsPreloader(true);
-      if (movieSearchLocal === null) {
-        moviesApi
-          .getInitialMovie()
-          .then((res) => {
-            if (res.length) {
-              const filterRes = res.filter(
-                (item) =>
-                  item.image &&
-                  item.country &&
-                  item.nameEN &&
-                  item.director &&
-                  item.trailerLink.startsWith("http")
-              );
+      moviesApi
+        .getInitialMovie()
+        .then((res) => {
+          if (res.length) {
+            const filterRes = res.filter(
+              (item) =>
+                item.image &&
+                item.country &&
+                item.nameEN &&
+                item.director &&
+                item.trailerLink.startsWith("http")
+            );
 
-              setMoviesSource(filterRes);
-              setMovies(filterRes);
-            }
-          })
-          .catch((err) => {
-            setMoviesSource([]);
-            console.log(`Ошибка при загрузке списка фильмов: ${err}`);
-          })
-          .finally(
-            () =>
-              (timeoutId = setTimeout(() => {
-                setIsPreloader(false);
-              }, 2000))
-          );
-      } else {
-        const filterRes = JSON.parse(movieLocal).filter(
-          (item) =>
-            item.image &&
-            item.country &&
-            item.nameEN &&
-            item.director &&
-            item.trailerLink.startsWith("http")
+            // Установка фильмов
+            setMoviesSource(filterRes);
+          }
+        })
+        .catch((err) => {
+          setMoviesSource([]);
+          console.log(`Ошибка при загрузке списка фильмов: ${err}`);
+        })
+        .finally(
+          () =>
+            (timeoutId = setTimeout(() => {
+              setIsPreloader(false);
+            }, 2000))
         );
-        setMovieInput(movieSearchLocal);
-        setMoviesSource(filterRes);
-        setMovies(filterRes);
-      }
-
-      const isOnlyShortsStorage = localStorage.getItem("MoviesOnlyShorts");
-      if (isOnlyShortsStorage) {
-        setIsOnlyShorts(isOnlyShortsStorage);
-      } else {
-        setIsOnlyShorts(false);
-      }
     }
     return () => clearTimeout(timeoutId);
   }, [loggedIn, location]);
@@ -148,10 +149,7 @@ export default function App() {
   /** Получить все лайкнутые фильмы */
   useEffect(() => {
     let timeoutId;
-    if (
-      loggedIn &&
-      (location.pathname === "/saved-movies" || location.pathname === "/movies")
-    ) {
+    if (loggedIn && location.pathname === "/saved-movies") {
       mainApi
         .getInitialLikeMovie()
         .then((res) => {
@@ -159,21 +157,10 @@ export default function App() {
             (item) => item.owner === currentUser._id
           );
 
-          const isOnlyShortsStorage = localStorage.getItem(
-            "SaveMoviesOnlyShorts"
-          );
-          if (isOnlyShortsStorage) {
-            setIsOnlyShorts(isOnlyShortsStorage);
-          } else {
-            setIsOnlyShorts(false);
-          }
-
           setSavedMoviesSource(ownerSavedMovies);
-          setSavedMovies(ownerSavedMovies);
         })
         .catch((err) => {
           setSavedMoviesSource([]);
-          setSavedMovies([]);
           console.log(`Ошибка при загрузке списка сохранённых фильмов: ${err}`);
         })
         .finally(
@@ -191,7 +178,7 @@ export default function App() {
     mainApi
       .addLikeMovie(movie)
       .then((newSavedMovie) => {
-        setSavedMovies([...newSavedMovie.data, ...savedMovies]);
+        setSavedMoviesSource([...newSavedMovie.data, ...savedMoviesSource]);
       })
 
       .catch((err) => {
@@ -204,11 +191,11 @@ export default function App() {
     mainApi
       .removeLikeMovie(movie._id)
       .then(() => {
-        const filtredMovies = savedMovies.filter(
+        const filtredMovies = savedMoviesSource.filter(
           (item) => item.movieId !== movie.movieId
         );
 
-        setSavedMovies(filtredMovies);
+        setSavedMoviesSource(filtredMovies);
       })
       .catch((err) => {
         console.log(
@@ -219,47 +206,16 @@ export default function App() {
 
   /** Поиск фильмов */
   function onSearchSubmit(movieQuery, isShortMovieOnly) {
-    let setFiltredMovies;
-    let source = moviesSource;
+    setSearchedMoviesInput(movieQuery);
+    setIsOnlyShorts(isShortMovieOnly);
 
-    if (location.pathname === "/movies") {
-      setFiltredMovies = setMovies;
-    } else {
-      setFiltredMovies = setSavedMovies;
-      source = savedMoviesSource;
-    }
-
-    const findMovies = source.filter(
-      (item) =>
-        item.nameRU.toLowerCase().includes(movieQuery.toLowerCase()) &&
-        (isShortMovieOnly ? item.duration < 40 : true)
-    );
-
-    setFiltredMovies(findMovies);
-
-    let localSaveMovie = JSON.stringify(
-      findMovies.filter(
-        (item) =>
-          item.image &&
-          item.country &&
-          item.nameEN &&
-          item.director &&
-          item.trailerLink.startsWith("http")
-      )
-    );
-
-    if (location.pathname === "/movies") {
-      localStorage.setItem("Movie", localSaveMovie);
-      localStorage.setItem("MovieSearch", movieQuery);
-    } else {
-      localStorage.setItem("SaveMovie", localSaveMovie);
-      localStorage.setItem("SaveMovieSearch", movieQuery);
-    }
+    localStorage.setItem("searchQuery", movieQuery);
+    localStorage.setItem("isShortOnlyQuery", isShortMovieOnly ? "1" : "0");
   }
 
   /** Проверка на сохраненность фильмов */
   function isSavedMovie(movie) {
-    return savedMovies.some((item) => {
+    return savedMoviesSource.some((item) => {
       return +item.movieId === movie.id;
     });
   }
@@ -302,21 +258,25 @@ export default function App() {
           <Route
             path="/signup"
             element={
-              <Register
+              <ProtectedRouteAuth
+                loggedIn={loggedIn || localStorage.getItem("token")}
                 errorRequest={errorRequest}
                 setErrorRequest={setErrorRequest}
                 onRegister={onRegister}
-              ></Register>
+                element={Register}
+              ></ProtectedRouteAuth>
             }
           />
           <Route
             path="/signin"
             element={
-              <Login
+              <ProtectedRouteAuth
+                loggedIn={loggedIn || localStorage.getItem("token")}
                 signIn={signIn}
                 errorRequest={errorRequest}
                 setErrorRequest={setErrorRequest}
-              ></Login>
+                element={Login}
+              ></ProtectedRouteAuth>
             }
           />
 
@@ -343,8 +303,8 @@ export default function App() {
             element={
               <ProtectedRoute
                 loggedIn={loggedIn || localStorage.getItem("token")}
-                movies={movies}
-                savedMovies={savedMovies}
+                movies={filteredMovies.all}
+                savedMovies={savedMoviesSource}
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 isPreloader={isPreloader}
@@ -355,7 +315,8 @@ export default function App() {
                 onDeleteSavedMovie={onDeleteSavedMovie}
                 isOnlyShorts={isOnlyShorts}
                 setIsOnlyShorts={setIsOnlyShorts}
-                movieInput={movieInput}
+                searchedMoviesInput={searchedMoviesInput}
+                setSearchedMoviesInput={setSearchedMoviesInput}
                 element={Movies}
               ></ProtectedRoute>
             }
@@ -370,13 +331,15 @@ export default function App() {
                 isHamburger={isHamburger}
                 setIsHamburger={setIsHamburger}
                 onHandleHamburger={onHandleHamburger}
-                movies={movies}
-                savedMovies={savedMovies}
+                movies={filteredMovies.saved}
+                savedMovies={filteredMovies.saved}
                 isPreloader={isPreloader}
                 onSearchSubmit={onSearchSubmit}
                 onDeleteSavedMovie={onDeleteSavedMovie}
                 isOnlyShorts={isOnlyShorts}
                 setIsOnlyShorts={setIsOnlyShorts}
+                searchedMoviesInput={searchedMoviesInput}
+                setSearchedMoviesInput={setSearchedMoviesInput}
               ></ProtectedRoute>
             }
           />
