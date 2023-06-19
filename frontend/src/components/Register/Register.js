@@ -154,7 +154,7 @@ export default function Register({
             disabled={
               !(
                 registerNameField.isValid &&
-                registerEmailField.isValid &&
+                registerEmailField.isEmailValid &&
                 registerPasswordField.isValid
               ) || errorRequest
             }
