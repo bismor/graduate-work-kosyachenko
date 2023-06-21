@@ -149,7 +149,10 @@ export default function App() {
   /** Получить все лайкнутые фильмы */
   useEffect(() => {
     let timeoutId;
-    if (loggedIn && location.pathname === "/saved-movies") {
+    if (
+      loggedIn &&
+      (location.pathname === "/saved-movies" || location.pathname === "/movies")
+    ) {
       mainApi
         .getInitialLikeMovie()
         .then((res) => {
