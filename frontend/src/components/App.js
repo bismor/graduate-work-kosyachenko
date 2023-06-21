@@ -222,7 +222,10 @@ export default function App() {
 
   function onLogout() {
     localStorage.clear();
-
+    setMoviesSource([]);
+    setSavedMoviesSource([]);
+    setSearchedMoviesInput("");
+    setIsOnlyShorts(false);
     setloggedIn(false);
     navigate("/", { replace: true });
   }
