@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRouteAuth = ({ element: Component, ...props }) => {
   return props.loggedIn ? (
-    <Navigate to="/" replace />
+    <Navigate to="/movies" replace />
   ) : (
     <Component {...props} />
   );
