@@ -19,12 +19,8 @@ export default function App() {
   const [savedMoviesSource, setSavedMoviesSource] = useState([]);
 
   const [loggedIn, setloggedIn] = useState(false);
-  const [searchedMoviesInput, setSearchedMoviesInput] = useState(
-    localStorage.getItem("searchQuery") || ""
-  );
-  const [isOnlyShorts, setIsOnlyShorts] = useState(
-    localStorage.getItem("isShortOnlyQuery") === "1" ? true : false
-  );
+  const [searchedMoviesInput, setSearchedMoviesInput] = useState("");
+  const [isOnlyShorts, setIsOnlyShorts] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isHamburger, setIsHamburger] = useState(false);
   const [isPreloader, setIsPreloader] = useState(true);
@@ -33,6 +29,18 @@ export default function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useMemo(() => {
+    if (location.pathname === "/movies") {
+      setSearchedMoviesInput(localStorage.getItem("searchQuery") || "");
+      setIsOnlyShorts(
+        localStorage.getItem("isShortOnlyQuery") === "1" ? true : false
+      );
+    } else {
+      setSearchedMoviesInput("");
+      setIsOnlyShorts(false);
+    }
+  }, [location]);
 
   const filteredMovies = useMemo(() => {
     const processMovies = (movie, array) => {
@@ -212,8 +220,10 @@ export default function App() {
     setSearchedMoviesInput(movieQuery);
     setIsOnlyShorts(isShortMovieOnly);
 
-    localStorage.setItem("searchQuery", movieQuery);
-    localStorage.setItem("isShortOnlyQuery", isShortMovieOnly ? "1" : "0");
+    if (location.pathname === "/movies") {
+      localStorage.setItem("searchQuery", movieQuery);
+      localStorage.setItem("isShortOnlyQuery", isShortMovieOnly ? "1" : "0");
+    }
   }
 
   /** Проверка на сохраненность фильмов */
