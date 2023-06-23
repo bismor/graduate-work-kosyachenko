@@ -45,7 +45,6 @@ export default function Movies({
         isOnlyShorts={isOnlyShorts}
         setIsOnlyShorts={setIsOnlyShorts}
         searchedMoviesInput={searchedMoviesInput}
-        setSearchedMoviesInput={setSearchedMoviesInput}
       />
       {isPreloader ? (
         <div className="container">

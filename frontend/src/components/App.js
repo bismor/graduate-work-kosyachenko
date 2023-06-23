@@ -322,7 +322,6 @@ export default function App() {
                 isOnlyShorts={isOnlyShorts}
                 setIsOnlyShorts={setIsOnlyShorts}
                 searchedMoviesInput={searchedMoviesInput}
-                setSearchedMoviesInput={setSearchedMoviesInput}
                 element={Movies}
               ></ProtectedRoute>
             }
@@ -345,7 +344,6 @@ export default function App() {
                 isOnlyShorts={isOnlyShorts}
                 setIsOnlyShorts={setIsOnlyShorts}
                 searchedMoviesInput={searchedMoviesInput}
-                setSearchedMoviesInput={setSearchedMoviesInput}
               ></ProtectedRoute>
             }
           />

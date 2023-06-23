@@ -6,7 +6,6 @@ export default function SearchForm({
   isOnlyShorts,
   setIsOnlyShorts,
   searchedMoviesInput,
-  setSearchedMoviesInput,
 }) {
   const [localSearchedMoviesInput, setLocalSearchedMoviesInput] =
     useState(searchedMoviesInput);
