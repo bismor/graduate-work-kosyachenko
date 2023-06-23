@@ -1,0 +1,115 @@
+.techs {
+  display: flex;
+  flex-direction: column;
+  padding: 4.375rem 1.125rem;
+  color: white;
+  background-color: #202020;
+}
+
+.techs__title {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.375rem;
+  border-bottom: solid 0.0625rem white;
+  margin: 0;
+  padding-bottom: 1.75rem;
+}
+
+.techs__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techs__heading {
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 2.25rem;
+  margin: 5rem 0 1.5rem 0;
+}
+
+.techs__text {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin: 0 0 3.125rem 0;
+  text-align: center;
+}
+
+.techs__technology {
+  display: grid;
+  grid-template-columns: repeat(2, 5.25rem);
+  gap: 0.625rem;
+}
+
+.techs__cell {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 0.9375rem;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  background: #303030;
+  text-align: center;
+  padding: 1.3125rem 0 ;
+}
+
+.techs__cell:hover {
+  opacity: 70%;
+}
+
+@media screen and (min-width: 768px) {
+  .techs {
+    padding: 5.625rem 3.125rem;
+  }
+  
+  .techs__title {
+    font-size: 1.375rem;
+    line-height: 1.6875rem;
+    padding-bottom: 1.4375rem;
+  }
+
+  .techs__heading {
+    font-size: 3.125rem;
+    line-height: 3.625rem;
+    margin: 5rem 0 1.375rem 0;
+  }
+
+  .techs__text {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    margin: 0 0 5.1875rem 0;
+  }
+
+  .techs__technology {
+    display: grid;
+    grid-template-columns: repeat(7, 5.25rem);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .techs {
+    padding: 6.25rem 4.375rem;
+  }
+  .techs__heading {
+    margin: 5.625rem 0 1.625rem 0;
+  }
+
+  .techs__text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin: 0 0 6.25rem 0;
+  }
+
+  .techs__technology {
+    grid-template-columns: repeat(7, 5.625rem);
+  }
+
+  .techs__cell {
+    font-size: .875rem;
+    line-height: 1.05875rem;
+    padding: 1.3125rem 0 1.375rem 0;
+  }
+}

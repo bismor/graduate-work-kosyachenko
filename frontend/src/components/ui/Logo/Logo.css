@@ -1,0 +1,8 @@
+.logo {
+    height: 38px;
+    width: 38px;
+}
+
+.logo:hover {
+    opacity: 70%;
+}
